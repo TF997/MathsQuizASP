@@ -8,9 +8,9 @@ namespace MathsQuiz
         private int trueAnswer;
         public int userAnswer { get; set; }
 
-        public int compareAnswer(string question, int firstNum, int secondNum, int opIndex, int opIndexTwo, bool extraOp, int userAnswer)
+        public int compareAnswer(LastQuestion lastQuestion, int userAnswer)
         {
-            trueAnswer = getTrueAnswer(question,firstNum, secondNum, opIndex, opIndexTwo, extraOp);
+            trueAnswer = getTrueAnswer(lastQuestion);
             System.Diagnostics.Debug.WriteLine(trueAnswer);
             return checkAnswer(userAnswer, trueAnswer);
         }
@@ -22,19 +22,19 @@ namespace MathsQuiz
             return answer;
         }
 
-        private int getTrueAnswer(string question, int firstNum, int secondNum, int opIndex, int opIndexTwo, bool extraOp)
+        private int getTrueAnswer(LastQuestion lastQuestion)
         {
-            if (opIndex == 5)
+            if (lastQuestion.opIndex == 5)
             {
-                return (int)Math.Pow(firstNum, secondNum);
+                return (int)Math.Pow(lastQuestion.firstNum, lastQuestion.secondNum);
             }
-            else if (opIndex == 4)
+            else if (lastQuestion.opIndex == 4)
             {
-                return (int)Math.Sqrt(firstNum);
+                return (int)Math.Sqrt(lastQuestion.firstNum);
             }
             else
             {
-                return Eval(question, opIndex, opIndexTwo, extraOp);
+                return Eval(lastQuestion.question, lastQuestion.opIndex, lastQuestion.opIndexTwo, lastQuestion.extraOp);
             }
         }
 

@@ -13,7 +13,7 @@
             <p runat="server" id="questionText" style="display:inline">placeholder</p>
             <p>ANSWER: <input type="text" name="answer" /></p>
             <input type="submit" value="Submit"/>
-            <p runat="server" id="answer">placeholder</p>
+            <p runat="server" id="answer">Input Your Answer!</p>
         </div>
     </form>
 </body>

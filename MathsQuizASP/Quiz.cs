@@ -7,8 +7,9 @@ namespace MathsQuiz
         public Question question = new Question();
         FileWriter file = new FileWriter();
         Answer answer = new Answer();
+        public LastQuestion lastQuestion = new LastQuestion();
         private int total = 0;
-        private int maxQuestions;
+        public int maxQuestions = -1;
         public int difficulty;
         private int result;
         
@@ -26,9 +27,9 @@ namespace MathsQuiz
 
         }
 
-        public int getResult(string question, int firstNum, int secondNum, int opIndex, int opIndexTwo, bool extraOp, int userAnswer)
+        public int getResult(int userAnswer)
         {
-           return(answer.compareAnswer(question, firstNum, secondNum, opIndex, opIndexTwo, extraOp, userAnswer));
+           return(answer.compareAnswer(lastQuestion, userAnswer));
         }
 
         public void addToTotalScore()
@@ -46,15 +47,6 @@ namespace MathsQuiz
             Console.WriteLine("Amount of questions?");
             maxQuestions = (int.Parse(Console.ReadLine()));
             return maxQuestions;
-        }
-
-        private int getDifficulty()
-        {
-            Console.WriteLine("Select difficulty");
-            Console.WriteLine("[1] EASY (+,-,*,/)");
-            Console.WriteLine("[2] Medium (*,/,^,√)");
-            Console.WriteLine("[3] Hard (+,-,*,/,^,√) 25% chance of 3 operators");
-            return (int.Parse(Console.ReadLine()));
         }
 
         public void generateResults()
