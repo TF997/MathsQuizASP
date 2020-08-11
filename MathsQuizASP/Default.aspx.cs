@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text.Json;
+using System.IO;
+using System.Text.Json.Serialization;
 using MathsQuiz;
 
 namespace MathsQuizASP
@@ -12,6 +15,7 @@ namespace MathsQuizASP
     public partial class Default : System.Web.UI.Page
     {
         Quiz quiz = new Quiz();
+        FileWriter file = new FileWriter();
         int questionCounter = 0;
         bool isDifficultyIntitated = false;
         bool ismaxQuestionsInitated = false;
@@ -21,6 +25,12 @@ namespace MathsQuizASP
 
             initaliseQuizStates();
             getUninitalisedDifficultyandMaxQuestions();
+            mainLoop();
+            saveQuizStates();
+        }
+
+        public void mainLoop()
+        {
             if (questionCounter < quiz.maxQuestions)
             {
                 askQuestion();
@@ -32,35 +42,19 @@ namespace MathsQuizASP
                 }
                 questionCounter++;
             }
-            else if(questionCounter != 0)
+            else if (questionCounter != 0)
             {
                 getAnswer();
                 checkAnswer();
                 displayAnswer();
                 questionText.InnerText = "THATS ALL THE QUESTIONS";
             }
-
-            saveQuizStates();
         }
 
         public void saveQuizStates()
         {
-            ViewState["question"] = quiz.question.question;
-            ViewState["firstNum"] = quiz.question.firstNum;
-            ViewState["secondNum"] = quiz.question.secondNum;
-            ViewState["opIndex"] = quiz.question.opIndex;
-            ViewState["opIndexTwo"] = quiz.question.opIndexTwo;
-            ViewState["extraOp"] = quiz.question.extraOp;
-
-            if (quiz.difficulty != 0)
-            {
-                ViewState["difficulty"] = quiz.difficulty;
-            }
-            if (quiz.maxQuestions != -1)
-            {
-                ViewState["maxQuestions"] = quiz.maxQuestions;
-                ViewState["questionCounter"] = questionCounter;
-            }
+            string toSave = JsonSerializer.Serialize(quiz.question);
+            File.WriteAllText(@"C:\TEMP\quiz.json", toSave);
         }
 
 
@@ -70,40 +64,8 @@ namespace MathsQuizASP
 
         public void initaliseQuizStates()
         {
-            if (ViewState["question"] != null)
-            {
-                quiz.lastQuestion.question = (string)ViewState["question"];
-            }
-            if (ViewState["firstNum"] != null)
-            {
-                quiz.lastQuestion.firstNum = (int)ViewState["firstNum"];
-            }
-            if (ViewState["secondNum"] != null)
-            {
-                quiz.lastQuestion.secondNum = (int)ViewState["secondNum"];
-            }
-            if (ViewState["opIndex"] != null)
-            {
-                quiz.lastQuestion.opIndex = (int)ViewState["opIndex"];
-            }
-            if (ViewState["opIndexTwo"] != null)
-            {
-                quiz.lastQuestion.opIndexTwo = (int)ViewState["opIndexTwo"];
-            }
-            if (ViewState["extraOp"] != null)
-            {
-                quiz.lastQuestion.extraOp = (bool)ViewState["extraOp"];
-            }
-            if (ViewState["difficulty"] != null)
-            {
-                quiz.difficulty = (int)ViewState["difficulty"];
-                isDifficultyIntitated = true;
-            }
-            if (ViewState["maxQuestions"] != null)
-            {
-                quiz.maxQuestions = (int)ViewState["maxQuestions"];
-                ismaxQuestionsInitated = true;
-            }
+            string toload = File.ReadAllText(@"C:\TEMP\quiz.json");
+            quiz.lastQuestion = JsonSerializer.Deserialize<LastQuestion>(toload);
             if (ViewState["questionCounter"] != null)
             {
                 questionCounter = (int)ViewState["questionCounter"];

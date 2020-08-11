@@ -10,6 +10,7 @@ namespace MathsQuiz
         public LastQuestion lastQuestion = new LastQuestion();
         private int total = 0;
         public int maxQuestions = -1;
+        public int questionCounter = 0;
         public int difficulty;
         private int result;
         
