@@ -4,17 +4,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Maths Quiz</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen"/>
 </head>
 <body>
-    <form id="form1" runat="server" method="get">
-        <div>
-            <p style="display:inline">QUESTION: </p>
+    <form class="mainForm" id="form1" runat="server" method="get">
             <p runat="server" id="questionText" style="display:inline">placeholder</p>
-            <p>ANSWER: <input type="text" name="answer" /></p>
-            <input type="submit" value="Submit"/>
+            <p><input type="text" name="answer" placeholder="Answer" /></p>
+            <p><input type="submit" value="Submit"/></p>
             <p runat="server" id="answer">Input Your Answer!</p>
-        </div>
     </form>
 </body>
 </html>
