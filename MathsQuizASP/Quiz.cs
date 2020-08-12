@@ -11,13 +11,14 @@ namespace MathsQuiz
         private int total = 0;
         public int maxQuestions = -1;
         public int questionCounter = 0;
-        public int difficulty;
+        public int difficulty = 0;
         private int result;
         
-        //file.createfile needed
+
         
         public Question getQuestion()
         {
+            file.createFile();
             return question;
         }
 

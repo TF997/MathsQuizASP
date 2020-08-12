@@ -14,4 +14,11 @@ namespace MathsQuiz
        public int opIndexTwo;
        public bool extraOp = false;
     }
+
+
+    public class RootObject
+    {
+        public LastQuestion LastQuestion { get; set; }
+    }
 }
+

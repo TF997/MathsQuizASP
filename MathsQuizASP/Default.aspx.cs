@@ -4,9 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Text.Json;
 using System.IO;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json; 
 using MathsQuiz;
 
 namespace MathsQuizASP
@@ -16,7 +15,7 @@ namespace MathsQuizASP
     {
         Quiz quiz = new Quiz();
         FileWriter file = new FileWriter();
-        int questionCounter = 0;
+        int questionCounter = 1;
         bool isDifficultyIntitated = false;
         bool ismaxQuestionsInitated = false;
         bool needRefresh = true;
@@ -26,7 +25,18 @@ namespace MathsQuizASP
             initaliseQuizStates();
             getUninitalisedDifficultyandMaxQuestions();
             mainLoop();
-            saveQuizStates();
+            if(questionCounter == quiz.maxQuestions && questionCounter != 1)
+            {
+                deleteFiles();
+                questionCounter = 1;
+                isDifficultyIntitated = false;
+                ismaxQuestionsInitated = false;
+                needRefresh = true;
+            }
+            else
+            {
+                saveQuizStates();
+            }
         }
 
         public void mainLoop()
@@ -39,22 +49,36 @@ namespace MathsQuizASP
                     getAnswer();
                     checkAnswer();
                     displayAnswer();
+                    questionCounter++;
                 }
-                questionCounter++;
             }
-            else if (questionCounter != 0)
+            else if (questionCounter != 1)
             {
                 getAnswer();
                 checkAnswer();
                 displayAnswer();
-                questionText.InnerText = "THATS ALL THE QUESTIONS";
+                questionText.InnerText = "Quiz Completed!";
             }
+        }
+
+        public void deleteFiles()
+        {
+            File.Delete(@"C:\TEMP\LastQuestion.json");
+            File.Delete(@"C:\TEMP\difficulty.json");
+            File.Delete(@"C:\TEMP\maxQuestions.json");
+            File.Delete(@"C:\TEMP\questionCounter.json");
         }
 
         public void saveQuizStates()
         {
-            string toSave = JsonSerializer.Serialize(quiz.question);
-            File.WriteAllText(@"C:\TEMP\quiz.json", toSave);
+            string toSave = JsonConvert.SerializeObject(quiz.question);
+            File.WriteAllText(@"C:\TEMP\LastQuestion.json", toSave);
+            toSave = JsonConvert.SerializeObject(quiz.difficulty);
+            File.WriteAllText(@"C:\TEMP\difficulty.json", toSave);
+            toSave = JsonConvert.SerializeObject(quiz.maxQuestions);
+            File.WriteAllText(@"C:\TEMP\maxQuestions.json", toSave);
+            toSave = JsonConvert.SerializeObject(questionCounter);
+            File.WriteAllText(@"C:\TEMP\questionCounter.json", toSave);
         }
 
 
@@ -64,15 +88,38 @@ namespace MathsQuizASP
 
         public void initaliseQuizStates()
         {
-            string toload = File.ReadAllText(@"C:\TEMP\quiz.json");
-            quiz.lastQuestion = JsonSerializer.Deserialize<LastQuestion>(toload);
-            if (ViewState["questionCounter"] != null)
+            string toload;
+            if (File.Exists(@"C:\TEMP\LastQuestion.json"))
             {
-                questionCounter = (int)ViewState["questionCounter"];
+                toload = File.ReadAllText(@"C:\TEMP\LastQuestion.json");
+                quiz.lastQuestion = JsonConvert.DeserializeObject<LastQuestion>(toload);
             }
-            if (ViewState["question"] != null)
+            if (File.Exists(@"C:\TEMP\difficulty.json"))
+            {
+                toload = File.ReadAllText(@"C:\TEMP\difficulty.json");
+                quiz.difficulty = JsonConvert.DeserializeObject<int>(toload);
+            }
+            if (File.Exists(@"C:\TEMP\maxQuestions.json"))
+            {
+                toload = File.ReadAllText(@"C:\TEMP\maxQuestions.json");
+                quiz.maxQuestions = JsonConvert.DeserializeObject<int>(toload);
+            }
+            if (File.Exists(@"C:\TEMP\questionCounter.json"))
+            {
+                toload = File.ReadAllText(@"C:\TEMP\questionCounter.json");
+                questionCounter = JsonConvert.DeserializeObject<int>(toload);
+            }
+            if (quiz.lastQuestion.question != null)
             {
                 needRefresh = false;
+            }
+            if(quiz.difficulty > 0)
+            {
+                isDifficultyIntitated = true;
+            }
+            if (quiz.maxQuestions > 0)
+            {
+                ismaxQuestionsInitated = true;
             }
         }
 
