@@ -20,6 +20,7 @@ namespace MathsQuizASP
         {
             answer.InnerText = Text;
         }
+
         public void writeQuestion(string Text)
         {
             question.InnerText = Text;

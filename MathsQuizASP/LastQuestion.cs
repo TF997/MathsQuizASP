@@ -7,18 +7,13 @@ namespace MathsQuiz
 {
     public class LastQuestion
     {
-       public string question = "";
-       public int firstNum;
-       public int secondNum;
-       public int opIndex;
-       public int opIndexTwo;
-       public bool extraOp = false;
+       public string question { get; set; } = "";
+       public int firstNum { get; set; }
+       public int secondNum { get; set; }
+       public int opIndex { get; set; }
+       public int opIndexTwo { get; set; }
+       public bool extraOp { get; set; } = false;
     }
 
-
-    public class RootObject
-    {
-        public LastQuestion LastQuestion { get; set; }
-    }
 }
 

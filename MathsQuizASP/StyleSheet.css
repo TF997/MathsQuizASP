@@ -1,21 +1,38 @@
 ﻿body {
     background: #34495e;
     text-align: center;
+    font-family: 'Aleo';
+    font-size: 40px;
+    justify-content:center;
 }
 
 .mainForm {
     background: #3498db;
     display: inline-block;
-    padding: 10%;
+    padding: 5%;
     border-radius: 20px;
     box-shadow: 15px 10px #2c3e50;
-    margin-top: 5%;
+    margin-top: 10%;
+    width: 45%;
 }
 
 input {
     text-align: center;
     background: #2980b9;
+    border-radius: 20px;
     color: white;
     border: hidden;
     padding: 2%;
+    font-size: 20px;
+}
+
+
+button{
+    all: unset;
+    display:inline;
+    vertical-align: text-top;
+}
+
+input:active{
+    border: none;
 }

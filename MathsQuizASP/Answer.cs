@@ -7,6 +7,7 @@ namespace MathsQuiz
     {
         private int trueAnswer;
         public int userAnswer { get; set; }
+        public int questionResult { get; set; }
 
         public int compareAnswer(LastQuestion lastQuestion, int userAnswer)
         {
@@ -15,11 +16,30 @@ namespace MathsQuiz
             return checkAnswer(userAnswer, trueAnswer);
         }
 
-        public int getUserAnswer()
+        public int getUserAnswer(string userAnswerString)
         {
-            string temp;
-            int answer = int.Parse(string.IsNullOrEmpty(temp = Console.ReadLine()) ? "0" : temp);
-            return answer;
+            return(int.Parse(userAnswerString));
+        }
+
+        public string getCorrectOrIncorrect(int questionResult)
+        {
+            if (questionResult == 1)
+            {
+                return "CORRECT!";
+            }
+            else if (questionResult == 0)
+            {
+                return "INCORRECT!";
+            }
+            return null;
+        }
+
+        public string checkAnswerAndDisplay(string inputString, LastQuestion lastQuestion)
+        {
+            int userAnswer = getUserAnswer(inputString);
+            questionResult = compareAnswer(lastQuestion, userAnswer);
+            string correctOrIncorrect = getCorrectOrIncorrect(questionResult);
+            return correctOrIncorrect;
         }
 
         private int getTrueAnswer(LastQuestion lastQuestion)
@@ -49,6 +69,7 @@ namespace MathsQuiz
                 return 0;
             }
         }
+
 
 
         public int Eval(string question, int opIndex, int opIndexTwo, bool extraOp)

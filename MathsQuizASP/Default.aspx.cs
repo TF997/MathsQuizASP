@@ -14,15 +14,24 @@ namespace MathsQuizASP
     public partial class Default : System.Web.UI.Page
     {
         Quiz quiz = new Quiz();
+        OutputWriter outputWriter = new OutputWriter();
         string inputString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            quiz.outputWriter.constructor(answer, questionText);
-            quiz.initaliseQuizStates();
             inputString = Request.QueryString["answer"];
-            quiz.askInitialisingQuestions(inputString);
-            quiz.mainLoop(inputString);
+            outputWriter.constructor(answer, questionText);
+            string initalisingQuestion = quiz.quizSetup(inputString);
+            if (initalisingQuestion != null)
+            {
+                outputWriter.writeQuestion(initalisingQuestion);
+            }
+            if (quiz.isDifficultyInitiated && quiz.ismaxQuestionsInitiated)
+            {
+                (string questionTextString, string answerTextString) = quiz.getQuestionAndAnswer(inputString);
+                outputWriter.writeQuestion(questionTextString);
+                outputWriter.writeAnswer(answerTextString);
+            }
             quiz.checkEndOfQuizOrSave();
         }
     }
