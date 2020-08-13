@@ -9,13 +9,21 @@ namespace MathsQuiz
         public int firstNum { get; set; }
         public int secondNum { get; set;}
         public int thirdNum { get; set; }
-        private char[] op  = { '+', '-', '*', '/', '√', '^'};
-        public int opIndex { get; set; }
-        public int opIndexTwo { get; set; }
-        public bool extraOp { get; set; }
+        private char[] mathOperators  = { '+', '-', '*', '/', '√', '^'};
+        public int operatorsIndex { get; set; }
+        public int operatorsIndexTwo { get; set; }
+        public bool extraOperators { get; set; }
         public string question { get; set;}
         public int trueAnswer { get; set; }
-
+        private int easyLowerBound = 1;
+        private int easyUpperBound = 11;
+        private int easyOperatorLowerBound = 0;
+        private int easyOperatorUpperBound = 4;
+        private int mediumOperatorLowerBound = 2;
+        private int mediumOperatorUpperBound = 6;
+        private int squareIdentifier = 5;
+        private int squareRootIdentifier = 4;
+        private int divisionIdentifier = 3;
         public void generateQuestion(int difficulty)
         {
             rng = new Random();
@@ -24,38 +32,38 @@ namespace MathsQuiz
             makeLargerNumberOne();
             checkOp();
         }
-        //remove magic numbers add related
+
         private void assignNumbers()
         {
-            firstNum = rng.Next(1, 11);
-            secondNum = rng.Next(1, 11);
+            firstNum = rng.Next(easyLowerBound, easyUpperBound);
+            secondNum = rng.Next(easyLowerBound, easyUpperBound);
             while (secondNum == firstNum)
             {
-                secondNum = rng.Next(1, 11);
+                secondNum = rng.Next(easyLowerBound, easyUpperBound);
             };
-            if (extraOp)
+            if (extraOperators)
             {
-                thirdNum = rng.Next(1, 11);
+                thirdNum = rng.Next(easyLowerBound, easyUpperBound);
             }
         }
 
         private void checkOp()
         {
-            if (opIndex == 5) 
+            if (operatorsIndex == squareIdentifier) 
             {
                 secondNum = 2;
             }
 
-            if (opIndex == 3 & (firstNum % secondNum != 0)) 
+            if (operatorsIndex == divisionIdentifier & (firstNum % secondNum != 0)) 
             {
-                opIndex = 2;
+                firstNum = firstNum * secondNum;
             }
 
-            else if (opIndex == 4) 
+            else if (operatorsIndex == squareRootIdentifier) 
             {
                 if (!checkIfSquareNumber(firstNum))
                 {
-                    opIndex = 2;
+                    operatorsIndex = 2;
                 }
             }
         }
@@ -79,17 +87,17 @@ namespace MathsQuiz
 
         public string displayQuestion()
         {
-            if (opIndex == 4)
+            if (operatorsIndex == 4)
             {
-                question = op[opIndex] + firstNum.ToString();
+                question = mathOperators[operatorsIndex] + firstNum.ToString();
             }
-            else if(!extraOp)
+            else if(!extraOperators)
             {
-                question = firstNum.ToString() + " " + op[opIndex] + " " + secondNum.ToString();
+                question = firstNum.ToString() + " " + mathOperators[operatorsIndex] + " " + secondNum.ToString();
             }
             else
             {
-                question = firstNum.ToString() + " " + op[opIndex] + " " + secondNum.ToString() + " " + op[opIndexTwo] + " " + thirdNum.ToString();
+                question = firstNum.ToString() + " " + mathOperators[operatorsIndex] + " " + secondNum.ToString() + " " + mathOperators[operatorsIndexTwo] + " " + thirdNum.ToString();
  
             }
 
@@ -101,24 +109,24 @@ namespace MathsQuiz
         {
             if (difficulty == 1)
             {
-                opIndex = rng.Next(0, 4);
+                operatorsIndex = rng.Next(easyOperatorLowerBound, easyOperatorUpperBound);
             }
             else if (difficulty == 2)
             {
-                opIndex = rng.Next(2, 6);
+                operatorsIndex = rng.Next(mediumOperatorLowerBound, mediumOperatorUpperBound);
             }
             else
             {
                 if (rng.Next(101) > 75)
                 {
-                    opIndex = rng.Next(0, 4);
-                    opIndexTwo = rng.Next(0, 4);
-                    extraOp = true;
+                    operatorsIndex = rng.Next(easyOperatorLowerBound, easyOperatorUpperBound);
+                    operatorsIndexTwo = rng.Next(easyOperatorLowerBound, easyOperatorUpperBound);
+                    extraOperators = true;
                 }
                 else
                 {
-                    opIndex = rng.Next(0, 6);
-                    extraOp = false;
+                    operatorsIndex = rng.Next(easyOperatorLowerBound, mediumOperatorUpperBound);
+                    extraOperators = false;
                 }
             }
         }

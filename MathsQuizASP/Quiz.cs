@@ -4,6 +4,7 @@ namespace MathsQuiz
 {
     public class Quiz
     {
+        private Initialise initialise = new Initialise();
         private ManageState state = new ManageState();
         private Question question = new Question();
         private Answer answer = new Answer();
@@ -12,10 +13,10 @@ namespace MathsQuiz
         private int maxQuestions = -1;
         private int questionCounter = 1;
         private int difficulty = 0;
-        public bool isDifficultyInitiated  = false;
-        public bool ismaxQuestionsInitiated = false;
         private bool needRefresh = true;
-       
+        public bool isDifficultyInitiated = false;
+        public bool ismaxQuestionsInitiated = false;
+
         public Question getQuestion()
         {
             return question;
@@ -23,8 +24,19 @@ namespace MathsQuiz
 
         public string quizSetup(string inputString) 
         {
+            string initialiseQuestion = null;
             state.initaliseQuizStates(ref  lastQuestion, ref  difficulty, ref  maxQuestions, ref  questionCounter, ref  needRefresh, ref  isDifficultyInitiated, ref  ismaxQuestionsInitiated, ref total);
-            return state.getUninitialisedDifficultyandMaxQuestions(ref inputString, ref isDifficultyInitiated, ref ismaxQuestionsInitiated, ref difficulty, ref maxQuestions);
+            if (!isDifficultyInitiated)
+            {
+                initialiseQuestion = initialise.Difficulty(ref inputString, ref isDifficultyInitiated, ref difficulty);
+            }
+
+            if (!ismaxQuestionsInitiated && isDifficultyInitiated)
+            {
+                initialiseQuestion = initialise.MaxQuestions(ref inputString, ref isDifficultyInitiated, ref ismaxQuestionsInitiated, ref maxQuestions);
+            }
+
+            return initialiseQuestion;
         }
 
         public string askQuestion()
@@ -34,7 +46,7 @@ namespace MathsQuiz
 
         }
 
-        public Tuple<string,string> getQuestionAndAnswer(string inputString) {
+        public Tuple<string,string> getQuestionAndSubmitAnswer(string inputString) {
             string questionTextString = null;
             string answerTextString = null;
             if (questionCounter < maxQuestions)
@@ -66,10 +78,7 @@ namespace MathsQuiz
         {
             if (questionCounter > maxQuestions && questionCounter != 1)
             {
-                questionCounter = 1;
-                isDifficultyInitiated = false;
-                ismaxQuestionsInitiated = false;
-                needRefresh = true;
+                resetVariables();
             }
             else
             {
@@ -77,12 +86,14 @@ namespace MathsQuiz
             }
         }
 
-        public int getAmountOfQuestions()
+        private void resetVariables() 
         {
-            Console.WriteLine("Amount of questions?");
-            maxQuestions = (int.Parse(Console.ReadLine()));
-            return maxQuestions;
+            questionCounter = 1;
+            isDifficultyInitiated = false;
+            ismaxQuestionsInitiated = false;
+            needRefresh = true;
         }
+
 
         private string resultsToDisplay()
         {

@@ -8,11 +8,11 @@ namespace MathsQuiz
         private int trueAnswer;
         public int userAnswer { get; set; }
         public int questionResult { get; set; }
+        private int divisionIdentifier = 3;
 
         public int compareAnswer(LastQuestion lastQuestion, int userAnswer)
         {
             trueAnswer = getTrueAnswer(lastQuestion);
-            System.Diagnostics.Debug.WriteLine(trueAnswer);
             return checkAnswer(userAnswer, trueAnswer);
         }
 
@@ -44,17 +44,17 @@ namespace MathsQuiz
 
         private int getTrueAnswer(LastQuestion lastQuestion)
         {
-            if (lastQuestion.opIndex == 5)
+            if (lastQuestion.operatorsIndex == 5)
             {
                 return (int)Math.Pow(lastQuestion.firstNum, lastQuestion.secondNum);
             }
-            else if (lastQuestion.opIndex == 4)
+            else if (lastQuestion.operatorsIndex == 4)
             {
                 return (int)Math.Sqrt(lastQuestion.firstNum);
             }
             else
             {
-                return Eval(lastQuestion.question, lastQuestion.opIndex, lastQuestion.opIndexTwo, lastQuestion.extraOp);
+                return Eval(lastQuestion.question, lastQuestion.operatorsIndex, lastQuestion.operatorsIndexTwo, lastQuestion.extraOperators);
             }
         }
 
@@ -72,11 +72,11 @@ namespace MathsQuiz
 
 
 
-        public int Eval(string question, int opIndex, int opIndexTwo, bool extraOp)
+        public int Eval(string question, int operatorsIndex, int operatorsIndexTwo, bool extraOperators)
         {
             int evalAnswer;
             System.Data.DataTable table = new System.Data.DataTable();
-            if (opIndex == 3 || (opIndexTwo == 3 && extraOp))
+            if (operatorsIndex == divisionIdentifier || (operatorsIndexTwo == divisionIdentifier && extraOperators))
             {
                 evalAnswer = Convert.ToInt32((double)table.Compute(question, string.Empty));
             }

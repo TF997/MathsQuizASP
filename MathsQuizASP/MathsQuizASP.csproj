@@ -100,12 +100,14 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="main.css" />
     <Content Include="Timer.js" />
-    <Content Include="StyleSheet.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Answer.cs" />
+    <Compile Include="Operatornator.cs" />
+    <Compile Include="Initialise.cs" />
     <Compile Include="OutputWriter.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

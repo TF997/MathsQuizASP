@@ -28,7 +28,7 @@ namespace MathsQuizASP
             }
             if (quiz.isDifficultyInitiated && quiz.ismaxQuestionsInitiated)
             {
-                (string questionTextString, string answerTextString) = quiz.getQuestionAndAnswer(inputString);
+                (string questionTextString, string answerTextString) = quiz.getQuestionAndSubmitAnswer(inputString);
                 outputWriter.writeQuestion(questionTextString);
                 outputWriter.writeAnswer(answerTextString);
             }

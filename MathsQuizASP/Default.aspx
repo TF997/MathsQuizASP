@@ -7,7 +7,7 @@
     <title>Maths Quiz</title>
     <link href='https://fonts.googleapis.com/css?family=Aleo' rel='stylesheet'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" type="text/css" href="StyleSheet.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="main.css" media="screen"/>
     <script src="timer.js"></script>
 </head>
 <body onload="countdown;">

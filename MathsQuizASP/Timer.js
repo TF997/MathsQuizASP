@@ -20,7 +20,7 @@ var countdown = setInterval(function () {
     // If the count down is finished, write some text
     if (distance < 0) {
         clearInterval(countdown);
-        document.getElementById("timer").innerHTML = "EXPIRED";
+        document.getElementById("timer").innerHTML = "Times up!";
         document.getElementById("answerBox").disabled = true;
     }
     sessionStorage.setItem("countDownDate", countDownDate);
