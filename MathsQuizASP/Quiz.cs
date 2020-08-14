@@ -10,9 +10,9 @@ namespace MathsQuiz
         private Answer answer = new Answer();
         private LastQuestion lastQuestion = new LastQuestion();
         private int total = 0;
-        private int maxQuestions = -1;
+        private int maxQuestions;
         private int questionCounter = 1;
-        private int difficulty = 0;
+        private int difficulty;
         private bool needRefresh = true;
         public bool isDifficultyInitiated = false;
         public bool ismaxQuestionsInitiated = false;
@@ -25,7 +25,8 @@ namespace MathsQuiz
         public string quizSetup(string inputString) 
         {
             string initialiseQuestion = null;
-            state.initaliseQuizStates(ref  lastQuestion, ref  difficulty, ref  maxQuestions, ref  questionCounter, ref  needRefresh, ref  isDifficultyInitiated, ref  ismaxQuestionsInitiated, ref total);
+            (lastQuestion, difficulty, maxQuestions, questionCounter, total) = state.loadQuiz();
+            (needRefresh, isDifficultyInitiated, ismaxQuestionsInitiated) = state.initaliseQuizStates(lastQuestion.question, difficulty, maxQuestions);
             if (!isDifficultyInitiated)
             {
                 initialiseQuestion = initialise.Difficulty(ref inputString, ref isDifficultyInitiated, ref difficulty);

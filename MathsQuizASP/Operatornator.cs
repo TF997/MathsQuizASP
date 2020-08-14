@@ -13,8 +13,11 @@ namespace MathsQuiz
         private int mediumOperatorLowerBound = 2;
         private int mediumOperatorUpperBound = 6;
 
-        public void getOp(int difficulty, ref int operatorsIndex, ref int operatorsIndexTwo, ref bool extraOperators)
+        public Tuple<int,int,bool> generateOperatorBasedOnDifficulty(int difficulty)
         {
+            int operatorsIndex;
+            int operatorsIndexTwo = -1;
+            bool extraOperators = false;
             randomNumberGenerator = new Random();
             if (difficulty == 1)
             {
@@ -38,6 +41,7 @@ namespace MathsQuiz
                     extraOperators = false;
                 }
             }
+            return new Tuple<int, int, bool>(operatorsIndex, operatorsIndexTwo, extraOperators);
         }
     }
 }

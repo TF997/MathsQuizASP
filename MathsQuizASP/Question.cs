@@ -4,7 +4,9 @@ namespace MathsQuiz
 {
     public class Question
     {
-        private static Random rng;
+        private Operatornator operatornator = new Operatornator();
+        private NumberGenerator numberGenerator = new NumberGenerator();
+        private QuestionChecker questionChecker = new QuestionChecker();
         //add private setters
         public int firstNum { get; set; }
         public int secondNum { get; set;}
@@ -17,74 +19,43 @@ namespace MathsQuiz
         public int trueAnswer { get; set; }
         private int easyLowerBound = 1;
         private int easyUpperBound = 11;
-        private int easyOperatorLowerBound = 0;
-        private int easyOperatorUpperBound = 4;
-        private int mediumOperatorLowerBound = 2;
-        private int mediumOperatorUpperBound = 6;
-        private int squareIdentifier = 5;
-        private int squareRootIdentifier = 4;
-        private int divisionIdentifier = 3;
+        
         public void generateQuestion(int difficulty)
         {
-            rng = new Random();
-            getOp(difficulty);
-            assignNumbers();
-            makeLargerNumberOne();
-            checkOp();
+            (operatorsIndex, operatorsIndexTwo, extraOperators) = operatornator.generateOperatorBasedOnDifficulty(difficulty);
+            getQuestionNumbers();
+            (firstNum,secondNum) = questionChecker.makeLargerNumberOne(firstNum, secondNum);
+            (string changeIdentifier, int changedProperty) = questionChecker.checkQuestionResults(operatorsIndex, firstNum, secondNum);
+            makeNeededChangesToQuestion(changeIdentifier, changedProperty);
         }
 
-        private void assignNumbers()
+        public void makeNeededChangesToQuestion(string changeIdentifier, int changedProperty) 
         {
-            firstNum = rng.Next(easyLowerBound, easyUpperBound);
-            secondNum = rng.Next(easyLowerBound, easyUpperBound);
-            while (secondNum == firstNum)
+            switch (changeIdentifier)
             {
-                secondNum = rng.Next(easyLowerBound, easyUpperBound);
-            };
+                case "secondNum":
+                    secondNum = changedProperty;
+                    break;
+                case "firstNum":
+                    firstNum = changedProperty;
+                    break;
+                case "operatorsIndex":
+                    operatorsIndex = changedProperty;
+                    break;
+            }
+
+        }
+
+        private void getQuestionNumbers()
+        {
+            firstNum = numberGenerator.assignNumberBasedOnRange(easyLowerBound, easyUpperBound);
+            secondNum = numberGenerator.assignNumberBasedOnRange(easyLowerBound, easyUpperBound);
             if (extraOperators)
             {
-                thirdNum = rng.Next(easyLowerBound, easyUpperBound);
+                thirdNum = numberGenerator.assignNumberBasedOnRange(easyLowerBound, easyUpperBound);
             }
         }
-
-        private void checkOp()
-        {
-            if (operatorsIndex == squareIdentifier) 
-            {
-                secondNum = 2;
-            }
-
-            if (operatorsIndex == divisionIdentifier & (firstNum % secondNum != 0)) 
-            {
-                firstNum = firstNum * secondNum;
-            }
-
-            else if (operatorsIndex == squareRootIdentifier) 
-            {
-                if (!checkIfSquareNumber(firstNum))
-                {
-                    operatorsIndex = 2;
-                }
-            }
-        }
-
-        private void makeLargerNumberOne()
-        {
-            if (firstNum < secondNum)
-            {
-                int temporaryFirstNum = firstNum;
-                firstNum = secondNum;
-                secondNum = temporaryFirstNum;
-            }
-        }
-
-        private bool checkIfSquareNumber(int firstNum)
-        {
-            double result = Math.Sqrt(firstNum);
-            bool isSquare = result % 1 == 0;
-            return isSquare;
-        }
-
+        
         public string displayQuestion()
         {
             if (operatorsIndex == 4)
@@ -102,33 +73,6 @@ namespace MathsQuiz
             }
 
             return(question);
-        }
-      
-
-        private void getOp(int difficulty)
-        {
-            if (difficulty == 1)
-            {
-                operatorsIndex = rng.Next(easyOperatorLowerBound, easyOperatorUpperBound);
-            }
-            else if (difficulty == 2)
-            {
-                operatorsIndex = rng.Next(mediumOperatorLowerBound, mediumOperatorUpperBound);
-            }
-            else
-            {
-                if (rng.Next(101) > 75)
-                {
-                    operatorsIndex = rng.Next(easyOperatorLowerBound, easyOperatorUpperBound);
-                    operatorsIndexTwo = rng.Next(easyOperatorLowerBound, easyOperatorUpperBound);
-                    extraOperators = true;
-                }
-                else
-                {
-                    operatorsIndex = rng.Next(easyOperatorLowerBound, mediumOperatorUpperBound);
-                    extraOperators = false;
-                }
-            }
         }
 
     }

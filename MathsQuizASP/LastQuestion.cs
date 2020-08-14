@@ -10,6 +10,7 @@ namespace MathsQuiz
        public string question { get; set; } = "";
        public int firstNum { get; set; }
        public int secondNum { get; set; }
+       public int thirdNum { get; set; }
        public int operatorsIndex { get; set; }
        public int operatorsIndexTwo { get; set; }
        public bool extraOperators { get; set; } = false;

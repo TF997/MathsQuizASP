@@ -8,10 +8,12 @@ namespace MathsQuiz
 {
     public class ManageState : System.Web.UI.Page
     {
-        public void initaliseQuizStates(ref LastQuestion lastQuestion, ref int difficulty, ref int maxQuestions, ref int questionCounter, ref bool needRefresh, ref bool isDifficultyInitiated, ref bool ismaxQuestionsInitiated, ref int total)
+        public Tuple<bool, bool, bool> initaliseQuizStates(string question, int difficulty, int maxQuestions)
         {
-            loadQuiz(ref lastQuestion, ref difficulty, ref maxQuestions, ref questionCounter, ref total);
-            if (lastQuestion.question != null)
+            bool needRefresh = true;
+            bool isDifficultyInitiated = false;
+            bool ismaxQuestionsInitiated = false;
+            if (question != null)
             {
                 needRefresh = false;
             }
@@ -23,10 +25,17 @@ namespace MathsQuiz
             {
                 ismaxQuestionsInitiated = true;
             }
+
+            return new Tuple<bool, bool, bool>(needRefresh, isDifficultyInitiated, ismaxQuestionsInitiated);
         }
 
-        public void loadQuiz(ref LastQuestion lastQuestion, ref int difficulty, ref int maxQuestions, ref int questionCounter, ref int total)
+        public Tuple<LastQuestion, int, int, int, int> loadQuiz()
         {
+            int total = 0;
+            int difficulty = -1;
+            int maxQuestions = -1;
+            int questionCounter = 1;
+            LastQuestion lastQuestion = new LastQuestion();
             if(Session["total"] != null)
             {
                 total = int.Parse(Session["total"].ToString());
@@ -51,6 +60,8 @@ namespace MathsQuiz
             {
                 lastQuestion = (LastQuestion)Session["lastQuestion"]; 
             }
+
+            return new Tuple<LastQuestion, int, int, int, int>(lastQuestion, difficulty, maxQuestions, questionCounter, total);
         }
 
         public void saveQuiz(Question question,  int difficulty,  int maxQuestions,  int questionCounter, int total)
