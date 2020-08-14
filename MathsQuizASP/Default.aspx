@@ -8,10 +8,9 @@
     <link href='https://fonts.googleapis.com/css?family=Aleo' rel='stylesheet'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="main.css" media="screen"/>
-    <script src="timer.js"></script>
 </head>
-<body onload="countdown;">
-    <form class="mainForm" id="form1" runat="server" method="get">
+<body>
+    <form class="mainForm" id="form1" runat="server" method="get" autocomplete="off">
             <p runat="server" id="questionText" style="display:inline">placeholder</p>
             <p><input id="answerBox" type="text" name="answer" placeholder="Answer" />
             <button class="btn btn-default" type="submit">
@@ -21,5 +20,7 @@
             <p runat="server" id="answer">Input Your Answer!</p>
             <p id ="timer"></p>
     </form>
+<script src="timer.js"></script>
+
 </body>
 </html>

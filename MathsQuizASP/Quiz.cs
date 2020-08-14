@@ -9,13 +9,11 @@ namespace MathsQuiz
         private Question question = new Question();
         private Answer answer = new Answer();
         private LastQuestion lastQuestion = new LastQuestion();
+        public StateInitialiserBooleans stateInitialiserBooleans = new StateInitialiserBooleans();
+        public DifficultyData difficultyData = new DifficultyData();
         private int total = 0;
         private int maxQuestions;
         private int questionCounter = 1;
-        private int difficulty;
-        private bool needRefresh = true;
-        public bool isDifficultyInitiated = false;
-        public bool ismaxQuestionsInitiated = false;
 
         public Question getQuestion()
         {
@@ -24,25 +22,66 @@ namespace MathsQuiz
 
         public string quizSetup(string inputString) 
         {
-            string initialiseQuestion = null;
-            (lastQuestion, difficulty, maxQuestions, questionCounter, total) = state.loadQuiz();
-            (needRefresh, isDifficultyInitiated, ismaxQuestionsInitiated) = state.initaliseQuizStates(lastQuestion.question, difficulty, maxQuestions);
-            if (!isDifficultyInitiated)
-            {
-                initialiseQuestion = initialise.Difficulty(ref inputString, ref isDifficultyInitiated, ref difficulty);
-            }
-
-            if (!ismaxQuestionsInitiated && isDifficultyInitiated)
-            {
-                initialiseQuestion = initialise.MaxQuestions(ref inputString, ref isDifficultyInitiated, ref ismaxQuestionsInitiated, ref maxQuestions);
-            }
+            LastSession lastSession = state.loadQuiz();
+            reallocateValuesFromLastSession(lastSession);
+            difficultyData.isDifficultyInitiated = checkDifficultyNeedsSetting();
+            string initialiseQuestion = checkForDifficultyandMaxQuestions(inputString);
+            stateInitialiserBooleans = state.initaliseQuizStates(lastQuestion.question, maxQuestions);
 
             return initialiseQuestion;
         }
 
+        public bool checkDifficultyNeedsSetting() 
+        {
+            if (difficultyData.difficulty > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public string checkForDifficultyandMaxQuestions(string inputString) 
+        {
+            if (!difficultyData.isDifficultyInitiated)
+            {
+                difficultyData = initialise.getDifficulty(inputString);
+                if (difficultyData.isDifficultyInitiated)
+                {
+                    inputString = null;
+                }
+                if(difficultyData.initialiserQuestion != null)
+                {
+                    return difficultyData.initialiserQuestion;
+                }
+            }
+
+            if (!stateInitialiserBooleans.ismaxQuestionsInitiated && difficultyData.isDifficultyInitiated)
+            {
+                string initialiseQuestion = initialise.getMaxQuestions(ref inputString, ref stateInitialiserBooleans.ismaxQuestionsInitiated, ref maxQuestions, difficultyData.isDifficultyInitiated);
+                if (stateInitialiserBooleans.ismaxQuestionsInitiated)
+                {
+                    inputString = null;
+                }
+                if (initialiseQuestion != null)
+                {
+                    return initialiseQuestion;
+                }
+            }
+            return null;
+        }
+
+        public void reallocateValuesFromLastSession(LastSession lastSession) 
+        {
+            lastQuestion = lastSession.lastQuestion;
+            difficultyData.difficulty = lastSession.difficulty;
+            maxQuestions = lastSession.maxQuestions;
+            questionCounter = lastSession.questionCounter;
+            total = lastSession.total;
+        }
+
         public string askQuestion()
         {
-            question.generateQuestion(difficulty);
+            question.generateQuestion(difficultyData.difficulty);
             return (question.displayQuestion());
 
         }
@@ -53,7 +92,7 @@ namespace MathsQuiz
             if (questionCounter < maxQuestions)
             {
                 questionTextString = askQuestion();
-                if (!needRefresh)
+                if (!stateInitialiserBooleans.needRefresh)
                 {
                     answerTextString = submitLastAnswer(inputString);
                 }
@@ -83,16 +122,16 @@ namespace MathsQuiz
             }
             else
             {
-                state.saveQuiz(question, difficulty, maxQuestions, questionCounter, total);
+                state.saveQuiz(question, difficultyData.difficulty, maxQuestions, questionCounter, total);
             }
         }
 
         private void resetVariables() 
         {
             questionCounter = 1;
-            isDifficultyInitiated = false;
-            ismaxQuestionsInitiated = false;
-            needRefresh = true;
+            difficultyData.isDifficultyInitiated = false;
+            stateInitialiserBooleans.ismaxQuestionsInitiated = false;
+            stateInitialiserBooleans.needRefresh = true;
         }
 
 

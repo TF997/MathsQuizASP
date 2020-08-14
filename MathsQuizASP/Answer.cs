@@ -25,11 +25,11 @@ namespace MathsQuiz
         {
             if (questionResult == 1)
             {
-                return "CORRECT!";
+                return "Last Answer was CORRECT!";
             }
             else if (questionResult == 0)
             {
-                return "INCORRECT!";
+                return "Last Answer was INCORRECT!";
             }
             return null;
         }

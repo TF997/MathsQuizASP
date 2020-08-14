@@ -8,10 +8,10 @@ namespace MathsQuiz
     public class Operatornator
     {
         private static Random randomNumberGenerator;
-        private int easyOperatorLowerBound = 0;
-        private int easyOperatorUpperBound = 4;
-        private int mediumOperatorLowerBound = 2;
-        private int mediumOperatorUpperBound = 6;
+        private const int easyOperatorLowerBound = 0;
+        private const int easyOperatorUpperBound = 4;
+        private const int mediumOperatorLowerBound = 2;
+        private const int mediumOperatorUpperBound = 6;
 
         public Tuple<int,int,bool> generateOperatorBasedOnDifficulty(int difficulty)
         {

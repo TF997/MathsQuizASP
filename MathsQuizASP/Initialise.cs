@@ -2,20 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MathsQuiz;
 
 namespace MathsQuizASP
 {
     public class Initialise
     {
-        public string Difficulty(ref string inputString, ref bool isDifficultyInitiated, ref int difficulty) 
-        {
-            return getDifficulty(ref inputString, ref isDifficultyInitiated, ref difficulty);
-        }
-
-        public string MaxQuestions(ref string inputString, ref bool isDifficultyInitiated, ref bool ismaxQuestionsInitiated, ref int maxQuestions) 
-        {
-            return getMaxQuestions(ref inputString, ref ismaxQuestionsInitiated, ref maxQuestions, isDifficultyInitiated);
-        }
 
         public string getMaxQuestions(ref string inputString, ref bool ismaxQuestionsInitiated, ref int maxQuestions, bool isDifficultyInitiated)
         {
@@ -32,19 +24,20 @@ namespace MathsQuizASP
             return null;
         }
 
-        public string getDifficulty(ref string inputString, ref bool isDifficultyInitiated, ref int difficulty)
+        public DifficultyData getDifficulty(string inputString)
         {
-            if (!isDifficultyInitiated && inputString != null)
+            DifficultyData difficultyData = new DifficultyData();
+
+            if (!difficultyData.isDifficultyInitiated && inputString != null)
             {
-                difficulty = int.Parse(inputString);
-                isDifficultyInitiated = true;
-                inputString = null;
+                difficultyData.difficulty = int.Parse(inputString);
+                difficultyData.isDifficultyInitiated = true;
             }
-            else if (!isDifficultyInitiated)
+            else if (!difficultyData.isDifficultyInitiated)
             {
-                return "Difficulty?";
+                difficultyData.initialiserQuestion = "Difficulty?";
             }
-            return null;
+            return difficultyData;
         }
 
     }

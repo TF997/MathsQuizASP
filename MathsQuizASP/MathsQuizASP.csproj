@@ -106,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Answer.cs" />
+    <Compile Include="DifficultyData.cs" />
+    <Compile Include="StateInitialiserBooleans.cs" />
+    <Compile Include="LastSession.cs" />
     <Compile Include="QuestionChecker.cs" />
     <Compile Include="NumberGenerator.cs" />
     <Compile Include="Operatornator.cs" />

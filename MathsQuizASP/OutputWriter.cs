@@ -10,7 +10,7 @@ namespace MathsQuizASP
     {
         HtmlGenericControl answer, question;
 
-        public void constructor(HtmlGenericControl answer, HtmlGenericControl question)
+        public OutputWriter(HtmlGenericControl answer, HtmlGenericControl question)
         {
             this.answer = answer;
             this.question = question;

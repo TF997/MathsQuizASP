@@ -8,60 +8,51 @@ namespace MathsQuiz
 {
     public class ManageState : System.Web.UI.Page
     {
-        public Tuple<bool, bool, bool> initaliseQuizStates(string question, int difficulty, int maxQuestions)
+        public StateInitialiserBooleans initaliseQuizStates(string question, int maxQuestions)
         {
-            bool needRefresh = true;
-            bool isDifficultyInitiated = false;
-            bool ismaxQuestionsInitiated = false;
+            StateInitialiserBooleans stateInitialiserBooleans = new StateInitialiserBooleans();
+
             if (question != null)
             {
-                needRefresh = false;
-            }
-            if (difficulty > 0)
-            {
-                isDifficultyInitiated = true;
+                stateInitialiserBooleans.needRefresh = false;
             }
             if (maxQuestions > 0)
             {
-                ismaxQuestionsInitiated = true;
+                stateInitialiserBooleans.ismaxQuestionsInitiated = true;
             }
 
-            return new Tuple<bool, bool, bool>(needRefresh, isDifficultyInitiated, ismaxQuestionsInitiated);
+            return stateInitialiserBooleans;
         }
 
-        public Tuple<LastQuestion, int, int, int, int> loadQuiz()
+        public LastSession loadQuiz()
         {
-            int total = 0;
-            int difficulty = -1;
-            int maxQuestions = -1;
-            int questionCounter = 1;
-            LastQuestion lastQuestion = new LastQuestion();
+            LastSession lastSession = new LastSession();
             if(Session["total"] != null)
             {
-                total = int.Parse(Session["total"].ToString());
+                lastSession.total = int.Parse(Session["total"].ToString());
 
             }
             if (Session["difficulty"] != null)
             {
-                difficulty = int.Parse(Session["difficulty"].ToString());
+                lastSession.difficulty = int.Parse(Session["difficulty"].ToString());
 
             }
             if (Session["maxQuestions"] != null)
             {
-                maxQuestions = int.Parse(Session["maxQuestions"].ToString());
+                lastSession.maxQuestions = int.Parse(Session["maxQuestions"].ToString());
 
             }
             if (Session["questionCounter"] != null)
             {
-                questionCounter = int.Parse(Session["questionCounter"].ToString());
+                lastSession.questionCounter = int.Parse(Session["questionCounter"].ToString());
 
             }
             if (Session["lastQuestion"] != null)
             {
-                lastQuestion = (LastQuestion)Session["lastQuestion"]; 
+                lastSession.lastQuestion = (LastQuestion)Session["lastQuestion"]; 
             }
 
-            return new Tuple<LastQuestion, int, int, int, int>(lastQuestion, difficulty, maxQuestions, questionCounter, total);
+            return lastSession;
         }
 
         public void saveQuiz(Question question,  int difficulty,  int maxQuestions,  int questionCounter, int total)

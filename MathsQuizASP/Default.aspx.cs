@@ -14,19 +14,19 @@ namespace MathsQuizASP
     public partial class Default : System.Web.UI.Page
     {
         Quiz quiz = new Quiz();
-        OutputWriter outputWriter = new OutputWriter();
+        OutputWriter outputWriter;
         string inputString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             inputString = Request.QueryString["answer"];
-            outputWriter.constructor(answer, questionText);
+            outputWriter = new OutputWriter(answer, questionText);
             string initalisingQuestion = quiz.quizSetup(inputString);
             if (initalisingQuestion != null)
             {
                 outputWriter.writeQuestion(initalisingQuestion);
             }
-            if (quiz.isDifficultyInitiated && quiz.ismaxQuestionsInitiated)
+            if (quiz.difficultyData.isDifficultyInitiated && quiz.stateInitialiserBooleans.ismaxQuestionsInitiated)
             {
                 (string questionTextString, string answerTextString) = quiz.getQuestionAndSubmitAnswer(inputString);
                 outputWriter.writeQuestion(questionTextString);
