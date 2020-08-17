@@ -13,7 +13,7 @@ namespace MathsQuiz
         private const int mediumOperatorLowerBound = 2;
         private const int mediumOperatorUpperBound = 6;
 
-        public Tuple<int,int,bool> generateOperatorBasedOnDifficulty(int difficulty)
+        public Tuple<int,int,bool> GenerateOperatorBasedOnDifficulty(int difficulty)
         {
             int operatorsIndex;
             int operatorsIndexTwo = -1;

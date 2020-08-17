@@ -5,10 +5,9 @@ using System.Web;
 
 namespace MathsQuiz
 {
-    public class DifficultyData
+    public class DifficultyData : QuestionData
     {
-        public bool isDifficultyInitiated { get; set; }
-        public int difficulty { get; set; }
-        public string initialiserQuestion { get; set; }
+        override public string InitialiserQuestion { get; set; } = "Difficulty?";
+
     }
 }

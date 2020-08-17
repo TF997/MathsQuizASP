@@ -7,11 +7,11 @@ namespace MathsQuiz
 {
     public class QuestionChecker
     {
-        private int squareIdentifier = 5;
-        private int squareRootIdentifier = 4;
-        private int divisionIdentifier = 3;
+        private readonly int squareIdentifier = 5;
+        private readonly int squareRootIdentifier = 4;
+        private readonly int divisionIdentifier = 3;
 
-        public Tuple<string,int> checkQuestionResults(int operatorsIndex, int firstNum, int secondNum)
+        public Tuple<string,int> CheckQuestionResults(int operatorsIndex, int firstNum, int secondNum)
         {
             string changeIdentifier = null;
             int changedProperty = -1;
@@ -24,14 +24,14 @@ namespace MathsQuiz
             if (operatorsIndex == divisionIdentifier)
             {
                 changeIdentifier = "firstNum";
-                changedProperty = checkDivisionResult(firstNum, secondNum);
+                changedProperty = CheckDivisionResult(firstNum, secondNum);
             }
 
 
             if (operatorsIndex == squareRootIdentifier)
             {
                 changeIdentifier = "operatorsIndex";
-                if (!checkIfSquareNumber(firstNum))
+                if (!CheckIfSquareNumber(firstNum))
                 {
                     changedProperty = 2;
                 }
@@ -39,28 +39,28 @@ namespace MathsQuiz
             return new Tuple<string, int>(changeIdentifier, changedProperty);
         }
 
-        private int checkDivisionResult(int firstNum, int secondNum)
+        private int CheckDivisionResult(int firstNum, int secondNum)
         {
             if ((firstNum % secondNum != 0))
             {
-                firstNum = firstNum * secondNum;
+                firstNum *= secondNum;
             }
 
             return firstNum;
         }
 
-        public Tuple<int,int> makeLargerNumberOne(int firstNum, int secondNum)
+        public QuestionNumbers MakeLargerNumberOne(QuestionNumbers numbers)
         {
-            if (firstNum < secondNum)
+            if (numbers.FirstNumber < numbers.SecondNumber)
             {
-                int temporaryFirstNum = firstNum;
-                firstNum = secondNum;
-                secondNum = temporaryFirstNum;
+                int temporaryFirstNum = numbers.FirstNumber;
+                numbers.FirstNumber = numbers.SecondNumber;
+                numbers.SecondNumber = temporaryFirstNum;
             }
-            return new Tuple<int, int>(firstNum, secondNum);
+            return numbers;
         }
 
-        private bool checkIfSquareNumber(int firstNum)
+        private bool CheckIfSquareNumber(int firstNum)
         {
             double result = Math.Sqrt(firstNum);
             bool isSquare = result % 1 == 0;

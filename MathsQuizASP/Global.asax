@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="MathsQuizASP.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="MathsQuizUI.Global" Language="C#" %>

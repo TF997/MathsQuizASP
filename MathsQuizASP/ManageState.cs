@@ -1,64 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Newtonsoft.Json;
-
-namespace MathsQuiz
+﻿using MathsQuiz;
+namespace MathsQuizUI
 {
     public class ManageState : System.Web.UI.Page
     {
-        public StateInitialiserBooleans initaliseQuizStates(string question)
+        public bool DoesPageNeedRefresh(string question)
         {
-            StateInitialiserBooleans stateInitialiserBooleans = new StateInitialiserBooleans();
-
-            if (question != null)
+            if (question == null)
             {
-                stateInitialiserBooleans.needRefresh = false;
+                return true;
             }
 
-            return stateInitialiserBooleans;
+            return false;
         }
 
-        public LastSession loadQuiz()
+        public LastSession LoadQuiz()
         {
             LastSession lastSession = new LastSession();
             if(Session["total"] != null)
             {
-                lastSession.total = int.Parse(Session["total"].ToString());
+                lastSession.Total = int.Parse(Session["total"].ToString());
 
             }
             if (Session["difficulty"] != null)
             {
-                lastSession.difficulty = int.Parse(Session["difficulty"].ToString());
+                lastSession.Difficulty = int.Parse(Session["difficulty"].ToString());
 
             }
             if (Session["maxQuestions"] != null)
             {
-                lastSession.maxQuestions = int.Parse(Session["maxQuestions"].ToString());
+                lastSession.MaxQuestions = int.Parse(Session["maxQuestions"].ToString());
 
             }
             if (Session["questionCounter"] != null)
             {
-                lastSession.questionCounter = int.Parse(Session["questionCounter"].ToString());
+                lastSession.QuestionCounter = int.Parse(Session["questionCounter"].ToString());
 
             }
             if (Session["lastQuestion"] != null)
             {
-                lastSession.lastQuestion = (LastQuestion)Session["lastQuestion"]; 
+                lastSession.LastSessionQuestion = (LastQuestion)Session["lastQuestion"]; 
             }
 
             return lastSession;
         }
 
-        public void saveQuiz(Question question,  int difficulty,  int maxQuestions,  int questionCounter, int total)
+        public void SaveQuiz(Question question,  int difficulty,  int maxQuestions,  int questionCounter, int total)
         {
-            var serializedQuestion = JsonConvert.SerializeObject(question);
-            LastQuestion lastQuestionShell = JsonConvert.DeserializeObject<LastQuestion>(serializedQuestion);
+            LastQuestion lastQuestion = new LastQuestion();
+            lastQuestion.CopyDataFromCurrentQuestion(question);
             Session["total"] = total;
             Session["difficulty"] = difficulty;
             Session["maxQuestions"] = maxQuestions;
-            Session["lastQuestion"] = lastQuestionShell;
+            Session["lastQuestion"] = lastQuestion;
             Session["questionCounter"] = questionCounter;
         }
     }

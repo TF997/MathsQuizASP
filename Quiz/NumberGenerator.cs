@@ -10,7 +10,7 @@ namespace MathsQuiz
         private static Random randomNumberGenerator;
         int lastGeneratedNumber = 0;
 
-        public int assignNumberBasedOnRange(int LowerBound, int UpperBound)
+        public int AssignNumberBasedOnRange(int LowerBound, int UpperBound)
         {
             randomNumberGenerator = new Random();
             int number = randomNumberGenerator.Next(LowerBound, UpperBound);

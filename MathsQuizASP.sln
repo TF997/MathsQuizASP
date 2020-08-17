@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathsQuizASP", "MathsQuizASP\MathsQuizASP.csproj", "{56A0C63C-AD2D-4B58-943A-B05EAEBE18B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathsQuizUI", "MathsQuizASP\MathsQuizUI.csproj", "{56A0C63C-AD2D-4B58-943A-B05EAEBE18B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathsQuiz", "Quiz\MathsQuiz.csproj", "{C3088483-1A79-4094-9A06-522ECC597975}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathsQuizConsole", "MathsQuizConsole\MathsQuizConsole.csproj", "{AFF1CA59-A4F3-49A2-8D87-9CF9C1BBE53F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{56A0C63C-AD2D-4B58-943A-B05EAEBE18B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56A0C63C-AD2D-4B58-943A-B05EAEBE18B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56A0C63C-AD2D-4B58-943A-B05EAEBE18B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3088483-1A79-4094-9A06-522ECC597975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3088483-1A79-4094-9A06-522ECC597975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3088483-1A79-4094-9A06-522ECC597975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3088483-1A79-4094-9A06-522ECC597975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFF1CA59-A4F3-49A2-8D87-9CF9C1BBE53F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFF1CA59-A4F3-49A2-8D87-9CF9C1BBE53F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFF1CA59-A4F3-49A2-8D87-9CF9C1BBE53F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFF1CA59-A4F3-49A2-8D87-9CF9C1BBE53F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

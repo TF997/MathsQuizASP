@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
-namespace MathsQuiz
+using MathsQuiz;
+namespace MathsQuizUI
 {
     public class LastSession
     {
-        public LastQuestion lastQuestion { get; set; } = new LastQuestion(); 
-        public int difficulty { get; set; }
-        public int maxQuestions { get; set; }
-        public int questionCounter { get; set; } = 1; 
-        public int total { get; set; }
+        public LastQuestion LastSessionQuestion { get; set; } = new LastQuestion(); 
+        public int Difficulty { get; set; }
+        public int MaxQuestions { get; set; }
+        public int QuestionCounter { get; set; } = 1; 
+        public int Total { get; set; }
     }
 }

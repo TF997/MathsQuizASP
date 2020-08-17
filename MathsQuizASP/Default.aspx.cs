@@ -1,38 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.IO;
-using Newtonsoft.Json; 
 using MathsQuiz;
 
-namespace MathsQuizASP
+namespace MathsQuizUI
 {
-    
+
     public partial class Default : System.Web.UI.Page
     {
-        Quiz quiz = new Quiz();
+        readonly Quiz quiz = new Quiz();
+        QuizOutput quizOutput = new QuizOutput();
+        private readonly ManageState state = new ManageState();
         OutputWriter outputWriter;
-        string inputString;
-
+        string InputString;
+        public bool DoesPageNeedRefresh;
         protected void Page_Load(object sender, EventArgs e)
         {
-            inputString = Request.QueryString["answer"];
+            InputString = Request.QueryString["answer"];
             outputWriter = new OutputWriter(answer, questionText);
-            string initalisingQuestion = quiz.quizSetup(inputString);
+            LastSession lastSession = state.LoadQuiz();
+            ReallocateValuesFromLastSession(lastSession);
+            string initalisingQuestion = quiz.QuizSetup(InputString);
+            DoesPageNeedRefresh = state.DoesPageNeedRefresh(quiz.lastQuestion.QuestionToAsk);
             if (initalisingQuestion != null)
             {
-                outputWriter.writeQuestion(initalisingQuestion);
+                outputWriter.WriteQuestion(initalisingQuestion);
             }
-            if (quiz.difficultyData.isDifficultyInitiated && quiz.maxQuestionData.isMaxQuestionsInitiated)
+            if (quiz.difficultyData.IsInitiated && quiz.maxQuestionData.IsInitiated)
             {
-                (string questionTextString, string answerTextString) = quiz.getQuestionAndSubmitAnswer(inputString);
-                outputWriter.writeQuestion(questionTextString);
-                outputWriter.writeAnswer(answerTextString);
+                quizOutput = quiz.GetQuestionAndSubmitLastAnswer(InputString, DoesPageNeedRefresh);
+                outputWriter.WriteQuestion(quizOutput.QuestionTextString);
+                outputWriter.WriteAnswer(quizOutput.AnswerTextString);
             }
-            quiz.checkEndOfQuizOrSave();
+            quiz.CheckEndOfQuiz();
+            state.SaveQuiz(quiz.question, quiz.difficultyData.Value, quiz.maxQuestionData.Value, quiz.QuestionCounter, quiz.Total);
+        }
+
+        public void ReallocateValuesFromLastSession(LastSession lastSession)
+        {
+            quiz.lastQuestion = lastSession.LastSessionQuestion;
+            quiz.difficultyData.Value = lastSession.Difficulty;
+            quiz.maxQuestionData.Value = lastSession.MaxQuestions;
+            quiz.QuestionCounter = lastSession.QuestionCounter;
+            quiz.Total = lastSession.Total;
         }
     }
 }

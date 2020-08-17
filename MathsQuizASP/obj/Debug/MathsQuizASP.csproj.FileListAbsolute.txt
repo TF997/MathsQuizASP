@@ -75,5 +75,6 @@ C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\System.Text.Enc
 C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\System.Text.Json.xml
 C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\System.ValueTuple.xml
-C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\Newtonsoft.Json.dll
-C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\Newtonsoft.Json.xml
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\Quiz.dll
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\Quiz.pdb
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\Quiz.dll.config

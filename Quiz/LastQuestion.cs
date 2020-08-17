@@ -7,14 +7,13 @@ namespace MathsQuiz
 {
     public class LastQuestion
     {
-       public string question { get; set; } = "";
-       public int firstNum { get; set; }
-       public int secondNum { get; set; }
-       public int thirdNum { get; set; }
-       public int operatorsIndex { get; set; }
-       public int operatorsIndexTwo { get; set; }
-       public bool extraOperators { get; set; } = false;
+       public string QuestionToAsk { get; set; }
+       public int FirstNum { get; set; }
+       public int SecondNum { get; set; }
+       public int ThirdNum { get; set; }
+       public int OperatorsIndexOne { get; set; }
+       public int OperatorsIndexTwo { get; set; }
+       public bool ExtraOperators { get; set; } = false;
     }
-
 }
 

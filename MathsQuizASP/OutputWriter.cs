@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.HtmlControls;
 
-namespace MathsQuizASP
+namespace MathsQuizUI
 {
     public class OutputWriter 
     {
-        HtmlGenericControl answer, question;
+        private readonly HtmlGenericControl answer;
+        private readonly HtmlGenericControl question;
 
         public OutputWriter(HtmlGenericControl answer, HtmlGenericControl question)
         {
@@ -16,12 +17,12 @@ namespace MathsQuizASP
             this.question = question;
         }
 
-        public void writeAnswer(string Text) 
+        public void WriteAnswer(string Text) 
         {
             answer.InnerText = Text;
         }
 
-        public void writeQuestion(string Text)
+        public void WriteQuestion(string Text)
         {
             question.InnerText = Text;
         }

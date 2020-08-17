@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MathsQuizASP
+namespace MathsQuizUI
 {
 
 

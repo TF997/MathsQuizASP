@@ -5,10 +5,9 @@ using System.Web;
 
 namespace MathsQuiz
 {
-    public class MaxQuestionData
+    public class MaxQuestionData : QuestionData
     {
-        public bool isMaxQuestionsInitiated { get; set; }
-        public int MaxQuestions { get; set; }
-        public string initialiserQuestion { get; set; }
+        override public string InitialiserQuestion { get; set; } = "How Many Questions?";
+
     }
 }

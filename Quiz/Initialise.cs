@@ -1,37 +1,36 @@
-﻿using MathsQuiz;
-
-namespace MathsQuizASP
+﻿
+namespace MathsQuiz
 {
     public class Initialise
     {
 
-        public MaxQuestionData getMaxQuestions(string inputString, bool isDifficultyInitiated)
+        public MaxQuestionData GetMaxQuestions(string UserInput, bool IsDifficultyInitiated)
         {
             MaxQuestionData maxQuestionData = new MaxQuestionData();
-            if (inputString != null)
+            if (UserInput != null)
             {
-                maxQuestionData.MaxQuestions = int.Parse(inputString);
-                maxQuestionData.isMaxQuestionsInitiated = true;
+                maxQuestionData.Value = int.Parse(UserInput);
+                maxQuestionData.IsInitiated = true;
             }
-            else if (isDifficultyInitiated)
+            else if (IsDifficultyInitiated)
             {
-                maxQuestionData.initialiserQuestion =  "How many questions?";
+                maxQuestionData.InitialiserQuestion =  "How many questions?";
             }
             return maxQuestionData;
         }
 
-        public DifficultyData getDifficulty(string inputString)
+        public DifficultyData GetDifficulty(string UserInput)
         {
             DifficultyData difficultyData = new DifficultyData();
 
-            if (inputString != null)
+            if (UserInput != null)
             {
-                difficultyData.difficulty = int.Parse(inputString);
-                difficultyData.isDifficultyInitiated = true;
+                difficultyData.Value = int.Parse(UserInput);
+                difficultyData.IsInitiated = true;
             }
             else
             {
-                difficultyData.initialiserQuestion = "Difficulty?";
+                difficultyData.InitialiserQuestion = "Difficulty?";
             }
             return difficultyData;
         }

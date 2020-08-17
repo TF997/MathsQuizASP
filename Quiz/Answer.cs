@@ -5,60 +5,38 @@ namespace MathsQuiz
 {
     class Answer
     {
-        private int trueAnswer;
-        public int userAnswer { get; set; }
-        public int questionResult { get; set; }
-        private int divisionIdentifier = 3;
+        private readonly int divisionIdentifier = 3;
 
-        public int compareAnswer(LastQuestion lastQuestion, int userAnswer)
-        {
-            trueAnswer = getTrueAnswer(lastQuestion);
-            return checkAnswer(userAnswer, trueAnswer);
-        }
-
-        public int getUserAnswer(string userAnswerString)
+        public int ParseUserAnswerFromString(string userAnswerString)
         {
             return(int.Parse(userAnswerString));
         }
 
-        public string getCorrectOrIncorrect(int questionResult)
+        public int CheckIfUserAnswerIsCorrect(string InputString, LastQuestion lastQuestion)
         {
-            if (questionResult == 1)
-            {
-                return "Last Answer was CORRECT!";
-            }
-            else if (questionResult == 0)
-            {
-                return "Last Answer was INCORRECT!";
-            }
-            return null;
+            int UserAnswer = ParseUserAnswerFromString(InputString);
+            int TrueAnswer = CalculateTrueAnswer(lastQuestion);
+            int Result = CompareAnswers(UserAnswer, TrueAnswer);
+            return Result;
         }
 
-        public string checkAnswerAndDisplay(string inputString, LastQuestion lastQuestion)
+        private int CalculateTrueAnswer(LastQuestion lastQuestion)
         {
-            int userAnswer = getUserAnswer(inputString);
-            questionResult = compareAnswer(lastQuestion, userAnswer);
-            string correctOrIncorrect = getCorrectOrIncorrect(questionResult);
-            return correctOrIncorrect;
-        }
-
-        private int getTrueAnswer(LastQuestion lastQuestion)
-        {
-            if (lastQuestion.operatorsIndex == 5)
+            if (lastQuestion.OperatorsIndexOne == 5)
             {
-                return (int)Math.Pow(lastQuestion.firstNum, lastQuestion.secondNum);
+                return (int)Math.Pow(lastQuestion.FirstNum, lastQuestion.SecondNum);
             }
-            else if (lastQuestion.operatorsIndex == 4)
+            else if (lastQuestion.OperatorsIndexOne == 4)
             {
-                return (int)Math.Sqrt(lastQuestion.firstNum);
+                return (int)Math.Sqrt(lastQuestion.FirstNum);
             }
             else
             {
-                return Eval(lastQuestion.question, lastQuestion.operatorsIndex, lastQuestion.operatorsIndexTwo, lastQuestion.extraOperators);
+                return Eval(lastQuestion.QuestionToAsk, lastQuestion.OperatorsIndexOne, lastQuestion.OperatorsIndexTwo, lastQuestion.ExtraOperators);
             }
         }
 
-        private int checkAnswer(int userAnswer, int trueAnswer)
+        private int CompareAnswers(int userAnswer, int trueAnswer)
         {
             if (userAnswer == trueAnswer)
             {

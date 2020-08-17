@@ -4,75 +4,70 @@ namespace MathsQuiz
 {
     public class Question
     {
-        private Operatornator operatornator = new Operatornator();
-        private NumberGenerator numberGenerator = new NumberGenerator();
-        private QuestionChecker questionChecker = new QuestionChecker();
-        //add private setters
-        public int firstNum { get; set; }
-        public int secondNum { get; set;}
-        public int thirdNum { get; set; }
-        private char[] mathOperators  = { '+', '-', '*', '/', '√', '^'};
-        public int operatorsIndex { get; set; }
-        public int operatorsIndexTwo { get; set; }
-        public bool extraOperators { get; set; }
-        public string question { get; set;}
-        public int trueAnswer { get; set; }
-        private int easyLowerBound = 1;
-        private int easyUpperBound = 11;
+        private readonly Operatornator operatornator = new Operatornator();
+        private readonly NumberGenerator numberGenerator = new NumberGenerator();
+        private readonly QuestionChecker questionChecker = new QuestionChecker();
+        public QuestionNumbers numbers = new QuestionNumbers();
+        public QuestionOperators questionOperators = new QuestionOperators();
+        private readonly char[] mathOperators  = { '+', '-', '*', '/', '√', '^'};
+        public string QuestionToAsk { get; set;}
+        public int TrueAnswer { get; set; }
+        private readonly int easyLowerBound = 1;
+        private readonly int easyUpperBound = 11;
         
-        public void generateQuestion(int difficulty)
+        public void GenerateQuestion(int difficulty)
         {
-            (operatorsIndex, operatorsIndexTwo, extraOperators) = operatornator.generateOperatorBasedOnDifficulty(difficulty);
-            getQuestionNumbers();
-            (firstNum,secondNum) = questionChecker.makeLargerNumberOne(firstNum, secondNum);
-            (string changeIdentifier, int changedProperty) = questionChecker.checkQuestionResults(operatorsIndex, firstNum, secondNum);
-            makeNeededChangesToQuestion(changeIdentifier, changedProperty);
+            (questionOperators.OperatorsIndexOne, questionOperators.OperatorsIndexTwo, questionOperators.ExtraOperators) = operatornator.GenerateOperatorBasedOnDifficulty(difficulty);
+            GetQuestionNumbers();
+            numbers = questionChecker.MakeLargerNumberOne(numbers);
+            (string changeIdentifier, int changedProperty) = questionChecker.CheckQuestionResults(questionOperators.OperatorsIndexOne, numbers.FirstNumber, numbers.SecondNumber);
+            MakeNeededChangesToQuestion(changeIdentifier, changedProperty);
         }
 
-        public void makeNeededChangesToQuestion(string changeIdentifier, int changedProperty) 
+        public void MakeNeededChangesToQuestion(string changeIdentifier, int changedProperty) 
         {
             switch (changeIdentifier)
             {
                 case "secondNum":
-                    secondNum = changedProperty;
+                    numbers.SecondNumber = changedProperty;
                     break;
                 case "firstNum":
-                    firstNum = changedProperty;
+                    numbers.FirstNumber = changedProperty;
                     break;
                 case "operatorsIndex":
-                    operatorsIndex = changedProperty;
+                    questionOperators.OperatorsIndexOne = changedProperty;
                     break;
             }
 
         }
 
-        private void getQuestionNumbers()
+        private void GetQuestionNumbers()
         {
-            firstNum = numberGenerator.assignNumberBasedOnRange(easyLowerBound, easyUpperBound);
-            secondNum = numberGenerator.assignNumberBasedOnRange(easyLowerBound, easyUpperBound);
-            if (extraOperators)
+            numbers.FirstNumber = numberGenerator.AssignNumberBasedOnRange(easyLowerBound, easyUpperBound);
+            numbers.SecondNumber = numberGenerator.AssignNumberBasedOnRange(easyLowerBound, easyUpperBound);
+            if (questionOperators.ExtraOperators)
             {
-                thirdNum = numberGenerator.assignNumberBasedOnRange(easyLowerBound, easyUpperBound);
+                numbers.ThirdNumber = numberGenerator.AssignNumberBasedOnRange(easyLowerBound, easyUpperBound);
             }
         }
         
-        public string displayQuestion()
+        public string DisplayQuestion()
         {
-            if (operatorsIndex == 4)
+            if (questionOperators.OperatorsIndexOne == 4)
             {
-                question = mathOperators[operatorsIndex] + firstNum.ToString();
+                QuestionToAsk = mathOperators[questionOperators.OperatorsIndexOne] + numbers.FirstNumber.ToString();
             }
-            else if(!extraOperators)
+            else if(!questionOperators.ExtraOperators)
             {
-                question = firstNum.ToString() + " " + mathOperators[operatorsIndex] + " " + secondNum.ToString();
+                QuestionToAsk = numbers.FirstNumber.ToString() + " " + mathOperators[questionOperators.OperatorsIndexOne] + " " + numbers.SecondNumber.ToString();
             }
             else
             {
-                question = firstNum.ToString() + " " + mathOperators[operatorsIndex] + " " + secondNum.ToString() + " " + mathOperators[operatorsIndexTwo] + " " + thirdNum.ToString();
+                QuestionToAsk = numbers.FirstNumber.ToString() + " " + mathOperators[questionOperators.OperatorsIndexOne] + " " + numbers.SecondNumber.ToString() + " " + mathOperators[questionOperators.OperatorsIndexTwo] + " " + numbers.ThirdNumber.ToString();
  
             }
 
-            return(question);
+            return(QuestionToAsk);
         }
 
     }

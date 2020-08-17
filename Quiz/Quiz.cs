@@ -1,153 +1,145 @@
-﻿using System;
-using MathsQuizASP;
-namespace MathsQuiz
+﻿namespace MathsQuiz
 {
     public class Quiz
     {
-        private Initialise initialise = new Initialise();
-        private ManageState state = new ManageState();
-        private Question question = new Question();
-        private Answer answer = new Answer();
+        private readonly Initialise initialise = new Initialise();
+        public readonly Question question = new Question();
+        private readonly Answer answer = new Answer();
         public MaxQuestionData maxQuestionData = new MaxQuestionData();
-        private LastQuestion lastQuestion = new LastQuestion();
-        public StateInitialiserBooleans stateInitialiserBooleans = new StateInitialiserBooleans();
+        public LastQuestion lastQuestion = new LastQuestion();
         public DifficultyData difficultyData = new DifficultyData();
-        private int total = 0;
-        private int questionCounter = 1;
+        public int Total = 0;
+        public int QuestionCounter = 1;
+        private string UserInput;
 
-        public Question getQuestion()
+        public Question GetQuestion()
         {
             return question;
         }
 
-        public string quizSetup(string inputString) 
+        public string QuizSetup(string inputString) 
         {
-            LastSession lastSession = state.loadQuiz();
-            reallocateValuesFromLastSession(lastSession);
-            difficultyData.isDifficultyInitiated = checkDifficultyNeedsSetting();
-            maxQuestionData.isMaxQuestionsInitiated = checkIfMaxQuestionsNeedsSetting();
-            stateInitialiserBooleans = state.initaliseQuizStates(lastQuestion.question);
-            string initialiseQuestion = checkForDifficultyandMaxQuestions(inputString);
+            UserInput = inputString;
+            difficultyData.NeedsSetting();
+            maxQuestionData.NeedsSetting();
+            string initialiseQuestion = CheckForDifficultyandMaxQuestions();
 
             return initialiseQuestion;
         }
 
-        public bool checkDifficultyNeedsSetting() 
+        public string CheckDifficultyIsSet() 
         {
-            if (difficultyData.difficulty > 0)
+            if (!difficultyData.IsInitiated)
             {
-                return true;
-            }
-            return false;
-        }
-
-        public bool checkIfMaxQuestionsNeedsSetting() 
-        {
-            if (maxQuestionData.MaxQuestions > 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public string checkForDifficultyandMaxQuestions(string inputString) 
-        {
-            if (!difficultyData.isDifficultyInitiated)
-            {
-                difficultyData = initialise.getDifficulty(inputString);
-                if (difficultyData.isDifficultyInitiated)
+                string IntialiserQuestion = difficultyData.GetData(UserInput);
+                if (difficultyData.IsInitiated)
                 {
-                    inputString = null;
+                    UserInput = null;
                 }
-                if(difficultyData.initialiserQuestion != null)
+                if (IntialiserQuestion != null)
                 {
-                    return difficultyData.initialiserQuestion;
-                }
-            }
-
-            if (!maxQuestionData.isMaxQuestionsInitiated && difficultyData.isDifficultyInitiated)
-            {
-                maxQuestionData = initialise.getMaxQuestions(inputString, difficultyData.isDifficultyInitiated);
-                if (maxQuestionData.isMaxQuestionsInitiated)
-                {
-                    inputString = null;
-                }
-                if (maxQuestionData.initialiserQuestion != null)
-                {
-                    return maxQuestionData.initialiserQuestion;
+                    return IntialiserQuestion;
                 }
             }
             return null;
         }
 
-        public void reallocateValuesFromLastSession(LastSession lastSession) 
+        public string CheckMaxQuestionsIsSet()
         {
-            lastQuestion = lastSession.lastQuestion;
-            difficultyData.difficulty = lastSession.difficulty;
-            maxQuestionData.MaxQuestions = lastSession.maxQuestions;
-            questionCounter = lastSession.questionCounter;
-            total = lastSession.total;
-        }
-
-        public string askQuestion()
-        {
-            question.generateQuestion(difficultyData.difficulty);
-            return (question.displayQuestion());
-
-        }
-
-        public Tuple<string,string> getQuestionAndSubmitAnswer(string inputString) {
-            string questionTextString = null;
-            string answerTextString = null;
-            if (questionCounter < maxQuestionData.MaxQuestions)
+            if (!maxQuestionData.IsInitiated && difficultyData.IsInitiated)
             {
-                questionTextString = askQuestion();
-                if (!stateInitialiserBooleans.needRefresh)
+                maxQuestionData = initialise.GetMaxQuestions(UserInput, difficultyData.IsInitiated);
+                if (maxQuestionData.InitialiserQuestion != null)
                 {
-                    answerTextString = submitLastAnswer(inputString);
+                    return maxQuestionData.InitialiserQuestion;
                 }
             }
-            else if (questionCounter != 1)
-            {
-                answerTextString = submitLastAnswer(inputString);
-                questionTextString = resultsToDisplay();
-            }
-            return new Tuple<string, string>(questionTextString, answerTextString);
+            return null;
         }
 
-        public string submitLastAnswer(string inputString) 
+        public string CheckForDifficultyandMaxQuestions() 
         {
-            string answerTextString = answer.checkAnswerAndDisplay(inputString, lastQuestion);
-            total += answer.questionResult;
-            questionCounter++;
+            string DifficultyInitialiseQuestion = CheckDifficultyIsSet();
+            string MaxQuestionInitialiseQuestion = CheckMaxQuestionsIsSet();
+            if (DifficultyInitialiseQuestion != null)
+            {
+                return DifficultyInitialiseQuestion;
+            }
+            else if (MaxQuestionInitialiseQuestion != null)
+            {
+                return MaxQuestionInitialiseQuestion;
+            }
+            return null;
+        }
+
+        public string AskQuestion()
+        {
+            question.GenerateQuestion(difficultyData.Value);
+            return (question.DisplayQuestion());
+
+        }
+
+        public QuizOutput GetQuestionAndSubmitLastAnswer(string inputString, bool DoesPageNeedRefresh) {
+            UserInput = inputString;
+            QuizOutput quizOutput = new QuizOutput();
+            if (QuestionCounter < maxQuestionData.Value)
+            {
+                quizOutput.QuestionTextString = AskQuestion();
+                if (!DoesPageNeedRefresh)
+                {
+                    quizOutput.AnswerTextString = SubmitLastAnswer();
+                }
+            }
+            else if (QuestionCounter != 1)
+            {
+                quizOutput.AnswerTextString = SubmitLastAnswer();
+                quizOutput.QuestionTextString = ResultsToDisplay();
+            }
+            return quizOutput;
+        }
+
+        public string InterperateCorrectOrIncorrectFromResult(int Result)
+        {
+            if (Result == 1)
+            {
+                return "Last Answer was CORRECT!";
+            }
+            else if (Result == 0)
+            {
+                return "Last Answer was INCORRECT!";
+            }
+            return null;
+        }
+
+        public string SubmitLastAnswer() 
+        {
+            int Result = answer.CheckIfUserAnswerIsCorrect(UserInput, lastQuestion);
+            Total += Result;
+            string answerTextString = InterperateCorrectOrIncorrectFromResult(Result);
+            QuestionCounter++;
 
             return answerTextString;
         }
 
-        public void checkEndOfQuizOrSave()
+        public void CheckEndOfQuiz()
         {
-            if (questionCounter > maxQuestionData.MaxQuestions && questionCounter != 1)
+            if (QuestionCounter > maxQuestionData.Value && QuestionCounter != 1)
             {
-                resetVariables();
-            }
-            else
-            {
-                state.saveQuiz(question, difficultyData.difficulty, maxQuestionData.MaxQuestions, questionCounter, total);
+                ResetVariables();
             }
         }
 
-        private void resetVariables() 
+        private void ResetVariables() 
         {
-            questionCounter = 1;
-            difficultyData.isDifficultyInitiated = false;
-            maxQuestionData.isMaxQuestionsInitiated = false;
-            stateInitialiserBooleans.needRefresh = true;
+            QuestionCounter = 1;
+            difficultyData.IsInitiated = false;
+            maxQuestionData.IsInitiated = false;
         }
 
 
-        private string resultsToDisplay()
+        private string ResultsToDisplay()
         {
-            return($"You scored: {total} out of a total: {maxQuestionData.MaxQuestions}");
+            return($"You scored: {Total} out of a total: {maxQuestionData.Value}");
         }
 
     }
