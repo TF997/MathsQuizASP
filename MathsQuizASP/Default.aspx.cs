@@ -26,7 +26,7 @@ namespace MathsQuizASP
             {
                 outputWriter.writeQuestion(initalisingQuestion);
             }
-            if (quiz.difficultyData.isDifficultyInitiated && quiz.stateInitialiserBooleans.ismaxQuestionsInitiated)
+            if (quiz.difficultyData.isDifficultyInitiated && quiz.maxQuestionData.isMaxQuestionsInitiated)
             {
                 (string questionTextString, string answerTextString) = quiz.getQuestionAndSubmitAnswer(inputString);
                 outputWriter.writeQuestion(questionTextString);
