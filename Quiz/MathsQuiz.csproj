@@ -76,7 +76,6 @@
     <Compile Include="Answer.cs" />
     <Compile Include="Caster.cs" />
     <Compile Include="DifficultyData.cs" />
-    <Compile Include="Initialise.cs" />
     <Compile Include="LastQuestion.cs" />
     <Compile Include="MaxQuestionData.cs" />
     <Compile Include="NumberGenerator.cs" />

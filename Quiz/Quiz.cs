@@ -26,6 +26,12 @@
             return initialiseQuestion;
         }
 
+        public void CheckSetupIsCompleted()
+        {
+            difficultyData.NeedsSetting();
+            maxQuestionData.NeedsSetting();
+        }
+
         public string CheckDifficultyIsSet() 
         {
             if (!difficultyData.IsInitiated)
@@ -94,6 +100,7 @@
                 quizOutput.AnswerTextString = SubmitLastAnswer();
                 quizOutput.QuestionTextString = ResultsToDisplay();
             }
+            lastQuestion.CopyDataFromCurrentQuestion(question);
             return quizOutput;
         }
 

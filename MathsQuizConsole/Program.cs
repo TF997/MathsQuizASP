@@ -10,7 +10,7 @@ namespace MathsQuizConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Quiz quiz = new Quiz();
             string InputString;
@@ -31,7 +31,6 @@ namespace MathsQuizConsole
                     Console.WriteLine(quizOutput.QuestionTextString);
                 }
                 quiz.CheckEndOfQuiz();
-                quiz.lastQuestion.CopyDataFromCurrentQuestion(quiz.question);
             }
         }
     }

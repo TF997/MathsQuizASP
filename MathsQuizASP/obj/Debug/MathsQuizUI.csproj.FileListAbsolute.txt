@@ -1,6 +1,3 @@
-C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\MathsQuizASP.dll.config
-C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\MathsQuizASP.dll
-C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\MathsQuizASP.pdb
 C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\roslyn\csc.exe
 C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\roslyn\csc.exe.config
 C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\roslyn\csc.rsp
@@ -76,5 +73,8 @@ C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\Microsoft.CodeD
 C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\obj\Debug\MathsQuizUI.csprojAssemblyReference.cache
 C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\obj\Debug\MathsQuizUI.csproj.CoreCompileInputs.cache
 C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\obj\Debug\MathsQuizUI.csproj.CopyComplete
-C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\obj\Debug\MathsQuizASP.dll
-C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\obj\Debug\MathsQuizASP.pdb
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\MathsQuizUI.dll.config
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\MathsQuizUI.dll
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\bin\MathsQuizUI.pdb
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\obj\Debug\MathsQuizUI.dll
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizASP\obj\Debug\MathsQuizUI.pdb

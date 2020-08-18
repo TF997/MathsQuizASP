@@ -16,6 +16,17 @@
     width: 45%;
 }
 
+.ProgressBar {
+    width: 100%;
+    background-color: #4b4b4b;
+}
+
+.InnerBar {
+    width: 1%;
+    height: 30px;
+    background-color: blue;
+}
+
 input {
     text-align: center;
     background: #2980b9;

@@ -10,27 +10,32 @@ namespace MathsQuizUI
         QuizOutput quizOutput = new QuizOutput();
         private readonly ManageState state = new ManageState();
         OutputWriter outputWriter;
+        public int BarProgress;
         string InputString;
         protected void Page_Load(object sender, EventArgs e)
         {
-            InputString = Request.QueryString["answer"];
+            if(Session["questionCounter"] != null)
+            {
+                BarProgress = int.Parse(Session["questionCounter"].ToString());
+            }
             outputWriter = new OutputWriter(answer, questionText);
             LastSession lastSession = state.LoadQuiz();
+            InputString = Request.QueryString["answer"];
             ReallocateValuesFromLastSession(lastSession);
-            string initalisingQuestion = quiz.QuizSetup(InputString);
-            if (initalisingQuestion != null)
+            quiz.CheckSetupIsCompleted();
+
+            if (!quiz.difficultyData.IsInitiated || !quiz.maxQuestionData.IsInitiated)
             {
-                outputWriter.WriteQuestion(initalisingQuestion);
+                Response.Redirect("Setup.aspx");
             }
+
             quiz.CheckThisIsTheFirstQuestion();
-            if (quiz.difficultyData.IsInitiated && quiz.maxQuestionData.IsInitiated)
-            {
-                quizOutput = quiz.GetQuestionAndSubmitLastAnswer(InputString);
-                outputWriter.WriteQuestion(quizOutput.QuestionTextString);
-                outputWriter.WriteAnswer(quizOutput.AnswerTextString);
-            }
+            quizOutput = quiz.GetQuestionAndSubmitLastAnswer(InputString);
+            outputWriter.WriteQuestion(quizOutput.QuestionTextString);
+            outputWriter.WriteAnswer(quizOutput.AnswerTextString);
+
             quiz.CheckEndOfQuiz();
-            state.SaveQuiz(quiz.question, quiz.difficultyData.Value, quiz.maxQuestionData.Value, quiz.QuestionCounter, quiz.Total);
+            state.SaveQuiz(quiz.lastQuestion, quiz.difficultyData.Value, quiz.maxQuestionData.Value, quiz.QuestionCounter, quiz.Total);
         }
 
         public void ReallocateValuesFromLastSession(LastSession lastSession)

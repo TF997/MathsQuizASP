@@ -34,15 +34,19 @@ namespace MathsQuizUI
             return lastSession;
         }
 
-        public void SaveQuiz(Question question,  int difficulty,  int maxQuestions,  int questionCounter, int total)
+        public void SaveQuiz(LastQuestion lastQuestion, int difficulty, int maxQuestions, int questionCounter, int total)
         {
-            LastQuestion lastQuestion = new LastQuestion();
-            lastQuestion.CopyDataFromCurrentQuestion(question);
             Session["total"] = total;
-            Session["difficulty"] = difficulty;
-            Session["maxQuestions"] = maxQuestions;
             Session["lastQuestion"] = lastQuestion;
             Session["questionCounter"] = questionCounter;
+            Session["difficulty"] = difficulty;
+            Session["maxQuestions"] = maxQuestions;
+        }
+
+        public void SaveConfig(int difficulty, int maxQuestions)
+        {
+            Session["difficulty"] = difficulty;
+            Session["maxQuestions"] = maxQuestions;
         }
     }
 }
