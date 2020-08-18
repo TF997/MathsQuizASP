@@ -3,16 +3,6 @@ namespace MathsQuizUI
 {
     public class ManageState : System.Web.UI.Page
     {
-        public bool DoesPageNeedRefresh(string question)
-        {
-            if (question == null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         public LastSession LoadQuiz()
         {
             LastSession lastSession = new LastSession();

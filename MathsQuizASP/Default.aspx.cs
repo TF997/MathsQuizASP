@@ -11,7 +11,6 @@ namespace MathsQuizUI
         private readonly ManageState state = new ManageState();
         OutputWriter outputWriter;
         string InputString;
-        public bool DoesPageNeedRefresh;
         protected void Page_Load(object sender, EventArgs e)
         {
             InputString = Request.QueryString["answer"];
@@ -19,14 +18,14 @@ namespace MathsQuizUI
             LastSession lastSession = state.LoadQuiz();
             ReallocateValuesFromLastSession(lastSession);
             string initalisingQuestion = quiz.QuizSetup(InputString);
-            DoesPageNeedRefresh = state.DoesPageNeedRefresh(quiz.lastQuestion.QuestionToAsk);
             if (initalisingQuestion != null)
             {
                 outputWriter.WriteQuestion(initalisingQuestion);
             }
+            quiz.CheckThisIsTheFirstQuestion();
             if (quiz.difficultyData.IsInitiated && quiz.maxQuestionData.IsInitiated)
             {
-                quizOutput = quiz.GetQuestionAndSubmitLastAnswer(InputString, DoesPageNeedRefresh);
+                quizOutput = quiz.GetQuestionAndSubmitLastAnswer(InputString);
                 outputWriter.WriteQuestion(quizOutput.QuestionTextString);
                 outputWriter.WriteAnswer(quizOutput.AnswerTextString);
             }

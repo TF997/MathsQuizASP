@@ -2,12 +2,12 @@
 {
     public class Quiz
     {
-        private readonly Initialise initialise = new Initialise();
         public readonly Question question = new Question();
         private readonly Answer answer = new Answer();
         public MaxQuestionData maxQuestionData = new MaxQuestionData();
         public LastQuestion lastQuestion = new LastQuestion();
         public DifficultyData difficultyData = new DifficultyData();
+        private bool IsThisTheFirstQuestion = false;
         public int Total = 0;
         public int QuestionCounter = 1;
         private string UserInput;
@@ -23,7 +23,6 @@
             difficultyData.NeedsSetting();
             maxQuestionData.NeedsSetting();
             string initialiseQuestion = CheckForDifficultyandMaxQuestions();
-
             return initialiseQuestion;
         }
 
@@ -48,10 +47,10 @@
         {
             if (!maxQuestionData.IsInitiated && difficultyData.IsInitiated)
             {
-                maxQuestionData = initialise.GetMaxQuestions(UserInput, difficultyData.IsInitiated);
-                if (maxQuestionData.InitialiserQuestion != null)
+                string IntialiserQuestion = maxQuestionData.GetData(UserInput);
+                if (IntialiserQuestion != null)
                 {
-                    return maxQuestionData.InitialiserQuestion;
+                    return IntialiserQuestion;
                 }
             }
             return null;
@@ -79,13 +78,13 @@
 
         }
 
-        public QuizOutput GetQuestionAndSubmitLastAnswer(string inputString, bool DoesPageNeedRefresh) {
+        public QuizOutput GetQuestionAndSubmitLastAnswer(string inputString) {
             UserInput = inputString;
             QuizOutput quizOutput = new QuizOutput();
             if (QuestionCounter < maxQuestionData.Value)
             {
                 quizOutput.QuestionTextString = AskQuestion();
-                if (!DoesPageNeedRefresh)
+                if (!IsThisTheFirstQuestion)
                 {
                     quizOutput.AnswerTextString = SubmitLastAnswer();
                 }
@@ -119,6 +118,18 @@
             QuestionCounter++;
 
             return answerTextString;
+        }
+
+        public void CheckThisIsTheFirstQuestion()
+        {
+            if (lastQuestion.QuestionToAsk == null)
+            {
+                IsThisTheFirstQuestion = true;
+            }
+            else
+            {
+                IsThisTheFirstQuestion = false;
+            }
         }
 
         public void CheckEndOfQuiz()

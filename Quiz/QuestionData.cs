@@ -25,7 +25,7 @@ namespace MathsQuiz
 
         public string GetData(string UserInput)
         {
-            if (UserInput != null)
+            if (UserInput != null && UserInput != "")
             {
                 Value = int.Parse(UserInput);
                 IsInitiated = true;
