@@ -97,7 +97,6 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="progressBar.js" />
     <Content Include="main.css" />
     <Content Include="Setup.aspx" />
     <Content Include="Timer.js" />

@@ -11,6 +11,7 @@ namespace MathsQuizUI
         private readonly ManageState state = new ManageState();
         OutputWriter outputWriter;
         string InputString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             outputWriter = new OutputWriter(answer, questionText);
@@ -23,10 +24,9 @@ namespace MathsQuizUI
             {
                 Response.Redirect("Setup.aspx");
             }
-
+            UpdateProgressBar();
             quizOutput = quiz.GetQuestionAndSubmitLastAnswer(InputString);
             DisplayQuestionAndAnswer();
-            SetHiddenPageText();
             quiz.CheckEndOfQuiz();
 
             state.SaveQuiz(quiz.lastQuestion, quiz.difficultyData.Value, quiz.maxQuestionData.Value, quiz.QuestionCounter, quiz.Total);
@@ -47,10 +47,18 @@ namespace MathsQuizUI
             outputWriter.WriteAnswer(quizOutput.AnswerTextString);
         }
 
-        public void SetHiddenPageText()
+        public void UpdateProgressBar()
         {
-            counter.InnerText = quiz.QuestionCounter.ToString();
-            total.InnerText = quiz.maxQuestionData.Value.ToString();
+            float barProgress = quiz.QuestionCounter;
+            float barTotal = quiz.maxQuestionData.Value;
+            float width = (barProgress / barTotal) * 100;
+            if (width >= 100)
+            {
+                width = 100;
+                timer.Visible = false;
+            }
+            string WidthCSS = width.ToString() + "%";
+            InnerBar.Attributes.CssStyle.Add("width", WidthCSS);
         }
     }
 }
