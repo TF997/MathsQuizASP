@@ -1,0 +1,11 @@
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizConsole\bin\Debug\MathsQuizConsole.exe.config
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizConsole\bin\Debug\MathsQuizConsole.exe
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizConsole\bin\Debug\MathsQuizConsole.pdb
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizConsole\bin\Debug\MathsQuiz.dll
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizConsole\bin\Debug\MathsQuiz.pdb
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizConsole\bin\Debug\MathsQuiz.dll.config
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizConsole\obj\Debug\MathsQuizConsole.csprojAssemblyReference.cache
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizConsole\obj\Debug\MathsQuizConsole.csproj.CoreCompileInputs.cache
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizConsole\obj\Debug\MathsQuizConsole.csproj.CopyComplete
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizConsole\obj\Debug\MathsQuizConsole.exe
+C:\Users\ben.townsend\source\repos\MathsQuizASP\MathsQuizConsole\obj\Debug\MathsQuizConsole.pdb
