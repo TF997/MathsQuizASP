@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MathsQuiz
 {
-    public class LastQuestion
+    public class LastQuestion //  Add interface, make names consistant
     {
        public string QuestionToAsk { get; set; }
        public int FirstNum { get; set; }

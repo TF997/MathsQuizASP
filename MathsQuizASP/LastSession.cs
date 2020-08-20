@@ -6,7 +6,7 @@ namespace MathsQuizUI
         public LastQuestion LastSessionQuestion { get; set; } = new LastQuestion(); 
         public int Difficulty { get; set; }
         public int MaxQuestions { get; set; }
-        public int QuestionCounter { get; set; } = 1; 
+        public int QuestionCounter { get; set; } = 0; 
         public int Total { get; set; }
     }
 }

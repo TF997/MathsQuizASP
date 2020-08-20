@@ -9,7 +9,7 @@
         public DifficultyData difficultyData = new DifficultyData();
         private bool IsThisTheFirstQuestion = false;
         public int Total = 0;
-        public int QuestionCounter = 1;
+        public int QuestionCounter = 0;
         public int Result;
         private string UserInput;
 
@@ -100,12 +100,13 @@
                     quizOutput.AnswerTextString = SubmitLastAnswer();
                 }
             }
-            else if (QuestionCounter != 1)
+            else if (QuestionCounter != 0)
             {
                 quizOutput.AnswerTextString = SubmitLastAnswer();
                 quizOutput.QuestionTextString = ResultsToDisplay();
             }
             lastQuestion.CopyDataFromCurrentQuestion(question);
+            QuestionCounter++;
             return quizOutput;
         }
 
@@ -128,7 +129,6 @@
             Result = answer.CheckIfUserAnswerIsCorrect(UserInput, lastQuestion);
             Total += Result;
             string answerTextString = InterperateCorrectOrIncorrectFromResult();
-            QuestionCounter++;
 
             return answerTextString;
         }
@@ -147,7 +147,7 @@
 
         public void CheckEndOfQuiz()
         {
-            if (QuestionCounter > maxQuestionData.Value && QuestionCounter != 1)
+            if (QuestionCounter > maxQuestionData.Value && QuestionCounter != 0)
             {
                 ResetVariables();
             }
@@ -155,7 +155,7 @@
 
         private void ResetVariables() 
         {
-            QuestionCounter = 1;
+            QuestionCounter = 0;
             difficultyData.IsInitiated = false;
             maxQuestionData.IsInitiated = false;
         }
