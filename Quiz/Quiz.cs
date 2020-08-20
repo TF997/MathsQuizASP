@@ -10,6 +10,7 @@
         private bool IsThisTheFirstQuestion = false;
         public int Total = 0;
         public int QuestionCounter = 1;
+        public int Result;
         private string UserInput;
 
         public Question GetQuestion()
@@ -30,6 +31,7 @@
         {
             difficultyData.NeedsSetting();
             maxQuestionData.NeedsSetting();
+            CheckThisIsTheFirstQuestion();
         }
 
         public string CheckDifficultyIsSet() 
@@ -64,17 +66,20 @@
 
         public string CheckForDifficultyandMaxQuestions() 
         {
+
+            string QuestionToReturn = null;
             string DifficultyInitialiseQuestion = CheckDifficultyIsSet();
             string MaxQuestionInitialiseQuestion = CheckMaxQuestionsIsSet();
+
             if (DifficultyInitialiseQuestion != null)
             {
-                return DifficultyInitialiseQuestion;
+                QuestionToReturn = DifficultyInitialiseQuestion;
             }
             else if (MaxQuestionInitialiseQuestion != null)
             {
-                return MaxQuestionInitialiseQuestion;
+                QuestionToReturn = MaxQuestionInitialiseQuestion;
             }
-            return null;
+            return QuestionToReturn;
         }
 
         public string AskQuestion()
@@ -104,24 +109,25 @@
             return quizOutput;
         }
 
-        public string InterperateCorrectOrIncorrectFromResult(int Result)
+        public string InterperateCorrectOrIncorrectFromResult()
         {
+            string TextToDisplay = null;
             if (Result == 1)
             {
-                return "Last Answer was CORRECT!";
+                TextToDisplay = "Last Answer was CORRECT!";
             }
             else if (Result == 0)
             {
-                return "Last Answer was INCORRECT!";
+                TextToDisplay = "Last Answer was INCORRECT!";
             }
-            return null;
+            return TextToDisplay;
         }
 
         public string SubmitLastAnswer() 
         {
-            int Result = answer.CheckIfUserAnswerIsCorrect(UserInput, lastQuestion);
+            Result = answer.CheckIfUserAnswerIsCorrect(UserInput, lastQuestion);
             Total += Result;
-            string answerTextString = InterperateCorrectOrIncorrectFromResult(Result);
+            string answerTextString = InterperateCorrectOrIncorrectFromResult();
             QuestionCounter++;
 
             return answerTextString;

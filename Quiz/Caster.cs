@@ -11,9 +11,9 @@ namespace MathsQuiz
         {
 
             lastQuestion.QuestionToAsk = question.QuestionToAsk;
-            lastQuestion.FirstNum = question.numbers.FirstNumber;
-            lastQuestion.SecondNum = question.numbers.SecondNumber;
-            lastQuestion.ThirdNum = question.numbers.ThirdNumber;
+            lastQuestion.FirstNum = question.questionNumbers.FirstNumber;
+            lastQuestion.SecondNum = question.questionNumbers.SecondNumber;
+            lastQuestion.ThirdNum = question.questionNumbers.ThirdNumber;
             lastQuestion.OperatorsIndexOne = question.questionOperators.OperatorsIndexOne;
             lastQuestion.OperatorsIndexTwo = question.questionOperators.OperatorsIndexTwo;
             lastQuestion.ExtraOperators = question.questionOperators.ExtraOperators;

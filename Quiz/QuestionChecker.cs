@@ -11,32 +11,31 @@ namespace MathsQuiz
         private readonly int squareRootIdentifier = 4;
         private readonly int divisionIdentifier = 3;
 
-        public Tuple<string,int> CheckQuestionResults(int operatorsIndex, int firstNum, int secondNum)
+        public QuestionCheckResults CheckQuestionResults(QuestionElementsToCheck questionElementsToCheck)
         {
-            string changeIdentifier = null;
-            int changedProperty = -1;
-            if (operatorsIndex == squareIdentifier)
+            QuestionCheckResults questionCheckResults = new QuestionCheckResults();
+            if (questionElementsToCheck.OperatorsIndexOne == squareIdentifier)
             {
-                changeIdentifier = "secondNum";
-                changedProperty = 2;
+                questionCheckResults.ChangeIdentifier = "secondNum";
+                questionCheckResults.ChangedProperty = 2;
             }
 
-            if (operatorsIndex == divisionIdentifier)
+            if (questionElementsToCheck.OperatorsIndexOne == divisionIdentifier)
             {
-                changeIdentifier = "firstNum";
-                changedProperty = CheckDivisionResult(firstNum, secondNum);
+                questionCheckResults.ChangeIdentifier = "firstNum";
+                questionCheckResults.ChangedProperty = CheckDivisionResult(questionElementsToCheck.FirstNumber, questionElementsToCheck.SecondNumber);
             }
 
 
-            if (operatorsIndex == squareRootIdentifier)
+            if (questionElementsToCheck.OperatorsIndexOne == squareRootIdentifier)
             {
-                changeIdentifier = "operatorsIndex";
-                if (!CheckIfSquareNumber(firstNum))
+                questionCheckResults.ChangeIdentifier = "operatorsIndex";
+                if (!CheckIfSquareNumber(questionElementsToCheck.FirstNumber))
                 {
-                    changedProperty = 2;
+                    questionCheckResults.ChangedProperty = 2;
                 }
             }
-            return new Tuple<string, int>(changeIdentifier, changedProperty);
+            return questionCheckResults;
         }
 
         private int CheckDivisionResult(int firstNum, int secondNum)

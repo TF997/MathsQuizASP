@@ -11,8 +11,8 @@
 </head>
 <body>
     <form class="mainForm" id="form1" runat="server" method="get" autocomplete="off">
-            <div class="ProgressBar">
-                <div class="InnerBar"></div>
+            <div id="ProgressBar">
+                <div id="InnerBar"></div>
             </div>
             <p runat="server" id="questionText" style="display:inline">placeholder</p>
             <p><input id="answerBox" type="text" name="answer" placeholder="Answer" />
@@ -21,8 +21,9 @@
             </button>
             </p>
             <p runat="server" id="answer">Input Your Answer!</p>
+            <p runat="server" id="counter" hidden="hidden">0</p>
+            <p runat="server" id="total" hidden="hidden">0</p>
             <p id ="timer"></p>
-            <p id ="debug"></p>
     </form>
 <script src="Timer.js"></script>
 <script src="progressBar.js"></script>

@@ -81,7 +81,9 @@
     <Compile Include="NumberGenerator.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="QuestionBounds.cs" />
+    <Compile Include="QuestionCheckResults.cs" />
     <Compile Include="QuestionData.cs" />
+    <Compile Include="QuestionElementsToCheck.cs" />
     <Compile Include="QuestionNumbers.cs" />
     <Compile Include="Operatornator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
