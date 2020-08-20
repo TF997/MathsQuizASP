@@ -7,19 +7,19 @@ namespace MathsQuiz
 {
     public class QuestionData
     {
-        public bool IsInitiated { get; set; }
-        public int Value { get; set; }
-        virtual public string InitialiserQuestion { get; set; }
+        public bool __IsInitiated { get; set; }
+        public int __Value { get; set; }
+        virtual public string __InitialiserQuestion { get; set; }
 
         public void NeedsSetting()
         {
-            if (Value > 0)
+            if (__Value > 0)
             {
-                IsInitiated = true;
+                __IsInitiated = true;
             }
             else
             {
-                IsInitiated = false;
+                __IsInitiated = false;
             }
         }
 
@@ -27,12 +27,12 @@ namespace MathsQuiz
         {
             if (UserInput != null && UserInput != "")
             {
-                Value = int.Parse(UserInput);
-                IsInitiated = true;
+                __Value = int.Parse(UserInput);
+                __IsInitiated = true;
             }
             else
             {
-                return InitialiserQuestion;
+                return __InitialiserQuestion;
             }
             return null;
         }

@@ -5,15 +5,15 @@ using System.Web;
 
 namespace MathsQuiz
 {
-    public class LastQuestion //  Add interface, make names consistant
+    public class LastQuestion : IQuestion
     {
-       public string QuestionToAsk { get; set; }
-       public int FirstNum { get; set; }
-       public int SecondNum { get; set; }
-       public int ThirdNum { get; set; }
-       public int OperatorsIndexOne { get; set; }
-       public int OperatorsIndexTwo { get; set; }
-       public bool ExtraOperators { get; set; } = false;
+       public string __QuestionToAsk { get; set; }
+       public int __FirstNum { get; set; }
+       public int __SecondNum { get; set; }
+       public int __ThirdNum { get; set; }
+       public int __OperatorsIndexOne { get; set; }
+       public int __OperatorsIndexTwo { get; set; }
+       public bool __ExtraOperators { get; set; } = false;
     }
 }
 

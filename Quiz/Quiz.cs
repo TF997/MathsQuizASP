@@ -2,50 +2,50 @@
 {
     public class Quiz
     {
-        public readonly Question question = new Question();
-        private readonly Answer answer = new Answer();
-        public MaxQuestionData maxQuestionData = new MaxQuestionData();
-        public LastQuestion lastQuestion = new LastQuestion();
-        public DifficultyData difficultyData = new DifficultyData();
-        private bool IsThisTheFirstQuestion = false;
-        public int Total = 0;
-        public int QuestionCounter = 0;
-        public int Result;
-        private string UserInput;
+        public readonly Question __question = new Question();
+        private readonly Answer __answer = new Answer();
+        public MaxQuestionData __maxQuestionData = new MaxQuestionData();
+        public LastQuestion __lastQuestion = new LastQuestion();
+        public DifficultyData __difficultyData = new DifficultyData();
+        private bool __IsThisTheFirstQuestion = false;
+        public int __Total = 0;
+        public int __QuestionCounter = 0;
+        public int __Result;
+        private string __UserInput;
 
         public Question GetQuestion()
         {
-            return question;
+            return __question;
         }
 
         public string QuizSetup(string inputString) 
         {
-            UserInput = inputString;
-            difficultyData.NeedsSetting();
-            maxQuestionData.NeedsSetting();
-            string initialiseQuestion = CheckForDifficultyandMaxQuestions();
-            return initialiseQuestion;
+            __UserInput = inputString;
+            __difficultyData.NeedsSetting();
+            __maxQuestionData.NeedsSetting();
+            string _initialiseQuestion = CheckForDifficultyandMaxQuestions();
+            return _initialiseQuestion;
         }
 
         public void CheckSetupIsCompleted()
         {
-            difficultyData.NeedsSetting();
-            maxQuestionData.NeedsSetting();
+            __difficultyData.NeedsSetting();
+            __maxQuestionData.NeedsSetting();
             CheckThisIsTheFirstQuestion();
         }
 
         public string CheckDifficultyIsSet() 
         {
-            if (!difficultyData.IsInitiated)
+            if (!__difficultyData.__IsInitiated)
             {
-                string IntialiserQuestion = difficultyData.GetData(UserInput);
-                if (difficultyData.IsInitiated)
+                string _IntialiserQuestion = __difficultyData.GetData(__UserInput);
+                if (__difficultyData.__IsInitiated)
                 {
-                    UserInput = null;
+                    __UserInput = null;
                 }
-                if (IntialiserQuestion != null)
+                if (_IntialiserQuestion != null)
                 {
-                    return IntialiserQuestion;
+                    return _IntialiserQuestion;
                 }
             }
             return null;
@@ -53,12 +53,12 @@
 
         public string CheckMaxQuestionsIsSet()
         {
-            if (!maxQuestionData.IsInitiated && difficultyData.IsInitiated)
+            if (!__maxQuestionData.__IsInitiated && __difficultyData.__IsInitiated)
             {
-                string IntialiserQuestion = maxQuestionData.GetData(UserInput);
-                if (IntialiserQuestion != null)
+                string _IntialiserQuestion = __maxQuestionData.GetData(__UserInput);
+                if (_IntialiserQuestion != null)
                 {
-                    return IntialiserQuestion;
+                    return _IntialiserQuestion;
                 }
             }
             return null;
@@ -67,87 +67,87 @@
         public string CheckForDifficultyandMaxQuestions() 
         {
 
-            string QuestionToReturn = null;
-            string DifficultyInitialiseQuestion = CheckDifficultyIsSet();
-            string MaxQuestionInitialiseQuestion = CheckMaxQuestionsIsSet();
+            string _QuestionToReturn = null;
+            string _DifficultyInitialiseQuestion = CheckDifficultyIsSet();
+            string _MaxQuestionInitialiseQuestion = CheckMaxQuestionsIsSet();
 
-            if (DifficultyInitialiseQuestion != null)
+            if (_DifficultyInitialiseQuestion != null)
             {
-                QuestionToReturn = DifficultyInitialiseQuestion;
+                _QuestionToReturn = _DifficultyInitialiseQuestion;
             }
-            else if (MaxQuestionInitialiseQuestion != null)
+            else if (_MaxQuestionInitialiseQuestion != null)
             {
-                QuestionToReturn = MaxQuestionInitialiseQuestion;
+                _QuestionToReturn = _MaxQuestionInitialiseQuestion;
             }
-            return QuestionToReturn;
+            return _QuestionToReturn;
         }
 
         public string AskQuestion()
         {
-            question.GenerateQuestion(difficultyData.Value);
-            return (question.DisplayQuestion());
+            __question._GenerateQuestion(__difficultyData.__Value);
+            return (__question.DisplayQuestion());
 
         }
 
         public QuizOutput GetQuestionAndSubmitLastAnswer(string inputString) {
-            UserInput = inputString;
-            QuizOutput quizOutput = new QuizOutput();
-            if (QuestionCounter < maxQuestionData.Value)
+            __UserInput = inputString;
+            QuizOutput _quizOutput = new QuizOutput();
+            if (__QuestionCounter < __maxQuestionData.__Value)
             {
-                quizOutput.QuestionTextString = AskQuestion();
-                if (!IsThisTheFirstQuestion)
+                _quizOutput.__QuestionTextString = AskQuestion();
+                if (!__IsThisTheFirstQuestion)
                 {
-                    quizOutput.AnswerTextString = SubmitLastAnswer();
+                    _quizOutput.__AnswerTextString = SubmitLastAnswer();
                 }
             }
-            else if (QuestionCounter != 0)
+            else if (__QuestionCounter != 0)
             {
-                quizOutput.AnswerTextString = SubmitLastAnswer();
-                quizOutput.QuestionTextString = ResultsToDisplay();
+                _quizOutput.__AnswerTextString = SubmitLastAnswer();
+                _quizOutput.__QuestionTextString = ResultsToDisplay();
             }
-            lastQuestion.CopyDataFromCurrentQuestion(question);
-            QuestionCounter++;
-            return quizOutput;
+            __lastQuestion.CopyDataFromCurrentQuestion(__question);
+            __QuestionCounter++;
+            return _quizOutput;
         }
 
         public string InterperateCorrectOrIncorrectFromResult()
         {
-            string TextToDisplay = null;
-            if (Result == 1)
+            string _TextToDisplay = null;
+            if (__Result == 1)
             {
-                TextToDisplay = "Last Answer was CORRECT!";
+                _TextToDisplay = "Last Answer was CORRECT!";
             }
-            else if (Result == 0)
+            else if (__Result == 0)
             {
-                TextToDisplay = "Last Answer was INCORRECT!";
+                _TextToDisplay = "Last Answer was INCORRECT!";
             }
-            return TextToDisplay;
+            return _TextToDisplay;
         }
 
         public string SubmitLastAnswer() 
         {
-            Result = answer.CheckIfUserAnswerIsCorrect(UserInput, lastQuestion);
-            Total += Result;
-            string answerTextString = InterperateCorrectOrIncorrectFromResult();
+            __Result = __answer.CheckIfUserAnswerIsCorrect(__UserInput, __lastQuestion);
+            __Total += __Result;
+            string _answerTextString = InterperateCorrectOrIncorrectFromResult();
 
-            return answerTextString;
+            return _answerTextString;
         }
 
         public void CheckThisIsTheFirstQuestion()
         {
-            if (lastQuestion.QuestionToAsk == null)
+            if (__lastQuestion.__QuestionToAsk == null)
             {
-                IsThisTheFirstQuestion = true;
+                __IsThisTheFirstQuestion = true;
             }
             else
             {
-                IsThisTheFirstQuestion = false;
+                __IsThisTheFirstQuestion = false;
             }
         }
 
         public void CheckEndOfQuiz()
         {
-            if (QuestionCounter > maxQuestionData.Value && QuestionCounter != 0)
+            if (__QuestionCounter > __maxQuestionData.__Value && __QuestionCounter != 0)
             {
                 ResetVariables();
             }
@@ -155,15 +155,15 @@
 
         private void ResetVariables() 
         {
-            QuestionCounter = 0;
-            difficultyData.IsInitiated = false;
-            maxQuestionData.IsInitiated = false;
+            __QuestionCounter = 0;
+            __difficultyData.__IsInitiated = false;
+            __maxQuestionData.__IsInitiated = false;
         }
 
 
         private string ResultsToDisplay()
         {
-            return($"You scored: {Total} out of a total: {maxQuestionData.Value}");
+            return($"You scored: {__Total} out of a total: {__maxQuestionData.__Value}");
         }
 
     }

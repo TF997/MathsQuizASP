@@ -21,8 +21,8 @@ namespace MathsQuizUI
             { 
                 questionText.InnerText = initalisingQuestion;
             }
-            state.SaveConfig(quiz.difficultyData.Value, quiz.maxQuestionData.Value);
-            if (quiz.maxQuestionData.IsInitiated && quiz.difficultyData.IsInitiated)
+            state.SaveConfig(quiz.__difficultyData.__Value, quiz.__maxQuestionData.__Value);
+            if (quiz.__maxQuestionData.__IsInitiated && quiz.__difficultyData.__IsInitiated)
             {
                 Response.Redirect("Default.aspx");
             }
@@ -30,11 +30,11 @@ namespace MathsQuizUI
 
         public void ReallocateValuesFromLastSession(LastSession lastSession)
         {
-            quiz.lastQuestion = lastSession.LastSessionQuestion;
-            quiz.difficultyData.Value = lastSession.Difficulty;
-            quiz.maxQuestionData.Value = lastSession.MaxQuestions;
-            quiz.QuestionCounter = lastSession.QuestionCounter;
-            quiz.Total = lastSession.Total;
+            quiz.__lastQuestion = lastSession.LastSessionQuestion;
+            quiz.__difficultyData.__Value = lastSession.Difficulty;
+            quiz.__maxQuestionData.__Value = lastSession.MaxQuestions;
+            quiz.__QuestionCounter = lastSession.QuestionCounter;
+            quiz.__Total = lastSession.Total;
         }
     }
 }

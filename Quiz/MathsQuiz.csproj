@@ -76,11 +76,11 @@
     <Compile Include="Answer.cs" />
     <Compile Include="Caster.cs" />
     <Compile Include="DifficultyData.cs" />
+    <Compile Include="IQuestion.cs" />
     <Compile Include="LastQuestion.cs" />
     <Compile Include="MaxQuestionData.cs" />
     <Compile Include="NumberGenerator.cs" />
     <Compile Include="Question.cs" />
-    <Compile Include="QuestionBounds.cs" />
     <Compile Include="QuestionCheckResults.cs" />
     <Compile Include="QuestionData.cs" />
     <Compile Include="QuestionElementsToCheck.cs" />

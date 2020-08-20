@@ -2,8 +2,8 @@
 {
     public class QuestionNumbers
     {
-        public int FirstNumber { get; set; }
-        public int SecondNumber { get; set; }
-        public int ThirdNumber { get; set; }
+        public int __FirstNumber { get; set; }
+        public int __SecondNumber { get; set; }
+        public int __ThirdNumber { get; set; }
     }
 }

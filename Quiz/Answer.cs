@@ -5,34 +5,34 @@ namespace MathsQuiz
 {
     class Answer
     {
-        private readonly int divisionIdentifier = 3;
+        private readonly int __divisionIdentifier = 3;
 
         public int ParseUserAnswerFromString(string userAnswerString)
         {
             return(int.Parse(userAnswerString));
         }
 
-        public int CheckIfUserAnswerIsCorrect(string InputString, LastQuestion lastQuestion)
+        public int CheckIfUserAnswerIsCorrect(string inputString, LastQuestion lastQuestion)
         {
-            int UserAnswer = ParseUserAnswerFromString(InputString);
-            int TrueAnswer = CalculateTrueAnswer(lastQuestion);
-            int Result = CompareAnswers(UserAnswer, TrueAnswer);
-            return Result;
+            int _UserAnswer = ParseUserAnswerFromString(inputString);
+            int _TrueAnswer = CalculateTrueAnswer(lastQuestion);
+            int _Result = CompareAnswers(_UserAnswer, _TrueAnswer);
+            return _Result;
         }
 
         private int CalculateTrueAnswer(LastQuestion lastQuestion)
         {
-            if (lastQuestion.OperatorsIndexOne == 5)
+            if (lastQuestion.__OperatorsIndexOne == 5)
             {
-                return (int)Math.Pow(lastQuestion.FirstNum, lastQuestion.SecondNum);
+                return (int)Math.Pow(lastQuestion.__FirstNum, lastQuestion.__SecondNum);
             }
-            else if (lastQuestion.OperatorsIndexOne == 4)
+            else if (lastQuestion.__OperatorsIndexOne == 4)
             {
-                return (int)Math.Sqrt(lastQuestion.FirstNum);
+                return (int)Math.Sqrt(lastQuestion.__FirstNum);
             }
             else
             {
-                return Eval(lastQuestion.QuestionToAsk, lastQuestion.OperatorsIndexOne, lastQuestion.OperatorsIndexTwo, lastQuestion.ExtraOperators);
+                return Eval(lastQuestion.__QuestionToAsk, lastQuestion.__OperatorsIndexOne, lastQuestion.__OperatorsIndexTwo, lastQuestion.__ExtraOperators);
             }
         }
 
@@ -52,17 +52,17 @@ namespace MathsQuiz
 
         public int Eval(string question, int operatorsIndex, int operatorsIndexTwo, bool extraOperators)
         {
-            int evalAnswer;
+            int _evalAnswer;
             System.Data.DataTable table = new System.Data.DataTable();
-            if (operatorsIndex == divisionIdentifier || (operatorsIndexTwo == divisionIdentifier && extraOperators))
+            if (operatorsIndex == __divisionIdentifier || (operatorsIndexTwo == __divisionIdentifier && extraOperators))
             {
-                evalAnswer = Convert.ToInt32((double)table.Compute(question, string.Empty));
+                _evalAnswer = Convert.ToInt32((double)table.Compute(question, string.Empty));
             }
             else
             {
-                evalAnswer = (int)table.Compute(question, string.Empty);
+                _evalAnswer = (int)table.Compute(question, string.Empty);
             }
-            return evalAnswer;
+            return _evalAnswer;
         }
     }
 }

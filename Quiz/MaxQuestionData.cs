@@ -7,7 +7,7 @@ namespace MathsQuiz
 {
     public class MaxQuestionData : QuestionData
     {
-        override public string InitialiserQuestion { get; set; } = "How many questions?";
+        override public string __InitialiserQuestion { get; set; } = "How many questions?";
 
     }
 }

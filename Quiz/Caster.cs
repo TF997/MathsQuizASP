@@ -10,13 +10,13 @@ namespace MathsQuiz
         public static LastQuestion CopyDataFromCurrentQuestion(this LastQuestion lastQuestion, Question question)
         {
 
-            lastQuestion.QuestionToAsk = question.QuestionToAsk;
-            lastQuestion.FirstNum = question.questionNumbers.FirstNumber;
-            lastQuestion.SecondNum = question.questionNumbers.SecondNumber;
-            lastQuestion.ThirdNum = question.questionNumbers.ThirdNumber;
-            lastQuestion.OperatorsIndexOne = question.questionOperators.OperatorsIndexOne;
-            lastQuestion.OperatorsIndexTwo = question.questionOperators.OperatorsIndexTwo;
-            lastQuestion.ExtraOperators = question.questionOperators.ExtraOperators;
+            lastQuestion.__QuestionToAsk = question.__QuestionToAsk;
+            lastQuestion.__FirstNum = question.__questionNumbers.__FirstNumber;
+            lastQuestion.__SecondNum = question.__questionNumbers.__SecondNumber;
+            lastQuestion.__ThirdNum = question.__questionNumbers.__ThirdNumber;
+            lastQuestion.__OperatorsIndexOne = question.__questionOperators.__OperatorsIndexOne;
+            lastQuestion.__OperatorsIndexTwo = question.__questionOperators.__OperatorsIndexTwo;
+            lastQuestion.__ExtraOperators = question.__questionOperators.__ExtraOperators;
             return lastQuestion;
         }
     }

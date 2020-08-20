@@ -2,41 +2,41 @@
 
 namespace MathsQuiz
 {
-    public class Question
+    public class Question : IQuestion
     {
-        private readonly Operatornator operatornator = new Operatornator();
-        private readonly NumberGenerator numberGenerator = new NumberGenerator();
-        private readonly QuestionChecker questionChecker = new QuestionChecker();
-        public QuestionNumbers questionNumbers = new QuestionNumbers();
-        public QuestionOperators questionOperators = new QuestionOperators();
-        private readonly char[] mathOperators  = { '+', '-', '*', '/', '√', '^'};
-        public string QuestionToAsk { get; set;}
-        public int TrueAnswer { get; set; }
-        private readonly int easyLowerBound = 1;
-        private readonly int easyUpperBound = 11;
+        private readonly Operatornator __operatornator = new Operatornator();
+        private readonly NumberGenerator __numberGenerator = new NumberGenerator();
+        private readonly QuestionChecker __questionChecker = new QuestionChecker();
+        public QuestionNumbers __questionNumbers = new QuestionNumbers();
+        public QuestionOperators __questionOperators = new QuestionOperators();
+        private readonly char[] __mathOperators  = { '+', '-', '*', '/', '√', '^'};
+        public string __QuestionToAsk { get; set;}
+        public int __TrueAnswer { get; set; }
+        private readonly int __easyLowerBound = 1;
+        private readonly int __easyUpperBound = 11;
         
-        public void GenerateQuestion(int difficulty)
+        public void _GenerateQuestion(int difficulty)
         {
-            questionOperators = operatornator.GenerateOperatorBasedOnDifficulty(difficulty);
+            __questionOperators = __operatornator.GenerateOperatorBasedOnDifficulty(difficulty);
             GetQuestionNumbers();
-            questionNumbers = questionChecker.MakeLargerNumberOne(questionNumbers);
-            QuestionElementsToCheck questionElementsToCheck = new QuestionElementsToCheck(questionOperators.OperatorsIndexOne, questionNumbers.FirstNumber, questionNumbers.SecondNumber);
-            QuestionCheckResults questionCheckResults = questionChecker.CheckQuestionResults(questionElementsToCheck);
+            __questionNumbers = __questionChecker.MakeLargerNumberOne(__questionNumbers);
+            QuestionElementsToCheck questionElementsToCheck = new QuestionElementsToCheck(__questionOperators.__OperatorsIndexOne, __questionNumbers.__FirstNumber, __questionNumbers.__SecondNumber);
+            QuestionCheckResults questionCheckResults = __questionChecker.CheckQuestionResults(questionElementsToCheck);
             MakeNeededChangesToQuestion(questionCheckResults);
         }
 
         public void MakeNeededChangesToQuestion(QuestionCheckResults questionCheckResults) 
         {
-            switch (questionCheckResults.ChangeIdentifier)
+            switch (questionCheckResults.__ChangeIdentifier)
             {
                 case "secondNum":
-                    questionNumbers.SecondNumber = questionCheckResults.ChangedProperty;
+                    __questionNumbers.__SecondNumber = questionCheckResults.__ChangedProperty;
                     break;
                 case "firstNum":
-                    questionNumbers.FirstNumber = questionCheckResults.ChangedProperty;
+                    __questionNumbers.__FirstNumber = questionCheckResults.__ChangedProperty;
                     break;
                 case "operatorsIndex":
-                    questionOperators.OperatorsIndexOne = questionCheckResults.ChangedProperty;
+                    __questionOperators.__OperatorsIndexOne = questionCheckResults.__ChangedProperty;
                     break;
             }
 
@@ -44,31 +44,31 @@ namespace MathsQuiz
 
         private void GetQuestionNumbers()
         {
-            questionNumbers.FirstNumber = numberGenerator.AssignNumberBasedOnRange(easyLowerBound, easyUpperBound);
-            questionNumbers.SecondNumber = numberGenerator.AssignNumberBasedOnRange(easyLowerBound, easyUpperBound);
-            if (questionOperators.ExtraOperators)
+            __questionNumbers.__FirstNumber = __numberGenerator.AssignNumberBasedOnRange(__easyLowerBound, __easyUpperBound);
+            __questionNumbers.__SecondNumber = __numberGenerator.AssignNumberBasedOnRange(__easyLowerBound, __easyUpperBound);
+            if (__questionOperators.__ExtraOperators)
             {
-                questionNumbers.ThirdNumber = numberGenerator.AssignNumberBasedOnRange(easyLowerBound, easyUpperBound);
+                __questionNumbers.__ThirdNumber = __numberGenerator.AssignNumberBasedOnRange(__easyLowerBound, __easyUpperBound);
             }
         }
         
         public string DisplayQuestion()
         {
-            if (questionOperators.OperatorsIndexOne == 4)
+            if (__questionOperators.__OperatorsIndexOne == 4)
             {
-                QuestionToAsk = mathOperators[questionOperators.OperatorsIndexOne] + questionNumbers.FirstNumber.ToString();
+                __QuestionToAsk = __mathOperators[__questionOperators.__OperatorsIndexOne] + __questionNumbers.__FirstNumber.ToString();
             }
-            else if(!questionOperators.ExtraOperators)
+            else if(!__questionOperators.__ExtraOperators)
             {
-                QuestionToAsk = questionNumbers.FirstNumber.ToString() + " " + mathOperators[questionOperators.OperatorsIndexOne] + " " + questionNumbers.SecondNumber.ToString();
+                __QuestionToAsk = __questionNumbers.__FirstNumber.ToString() + " " + __mathOperators[__questionOperators.__OperatorsIndexOne] + " " + __questionNumbers.__SecondNumber.ToString();
             }
             else
             {
-                QuestionToAsk = questionNumbers.FirstNumber.ToString() + " " + mathOperators[questionOperators.OperatorsIndexOne] + " " + questionNumbers.SecondNumber.ToString() + " " + mathOperators[questionOperators.OperatorsIndexTwo] + " " + questionNumbers.ThirdNumber.ToString();
+                __QuestionToAsk = __questionNumbers.__FirstNumber.ToString() + " " + __mathOperators[__questionOperators.__OperatorsIndexOne] + " " + __questionNumbers.__SecondNumber.ToString() + " " + __mathOperators[__questionOperators.__OperatorsIndexTwo] + " " + __questionNumbers.__ThirdNumber.ToString();
  
             }
 
-            return(QuestionToAsk);
+            return(__QuestionToAsk);
         }
 
     }

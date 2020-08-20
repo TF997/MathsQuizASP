@@ -7,21 +7,21 @@ namespace MathsQuiz
 {
     public class NumberGenerator
     {
-        private static Random randomNumberGenerator;
-        int lastGeneratedNumber = 0;
+        private static Random __randomNumberGenerator;
+        int __lastGeneratedNumber = 0;
 
-        public int AssignNumberBasedOnRange(int LowerBound, int UpperBound)
+        public int AssignNumberBasedOnRange(int lowerBound, int upperBound)
         {
-            randomNumberGenerator = new Random();
-            int number = randomNumberGenerator.Next(LowerBound, UpperBound);
-            if (lastGeneratedNumber != 0)
+            __randomNumberGenerator = new Random();
+            int number = __randomNumberGenerator.Next(lowerBound, upperBound);
+            if (__lastGeneratedNumber != 0)
             {
-                while(lastGeneratedNumber == number)
+                while(__lastGeneratedNumber == number)
                 {
-                    number = randomNumberGenerator.Next(LowerBound, UpperBound);
+                    number = __randomNumberGenerator.Next(lowerBound, upperBound);
                 }
             }
-            lastGeneratedNumber = number;
+            __lastGeneratedNumber = number;
             return number;
         }
     }

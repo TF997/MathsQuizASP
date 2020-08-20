@@ -24,11 +24,11 @@ namespace MathsQuizConsole
                     Console.WriteLine(initalisingQuestion);
                 }
                 quiz.CheckThisIsTheFirstQuestion();
-                if (quiz.difficultyData.IsInitiated && quiz.maxQuestionData.IsInitiated)
+                if (quiz.__difficultyData.__IsInitiated && quiz.__maxQuestionData.__IsInitiated)
                 {
                     QuizOutput quizOutput = quiz.GetQuestionAndSubmitLastAnswer(InputString);
-                    Console.WriteLine(quizOutput.AnswerTextString);
-                    Console.WriteLine(quizOutput.QuestionTextString);
+                    Console.WriteLine(quizOutput.__AnswerTextString);
+                    Console.WriteLine(quizOutput.__QuestionTextString);
                 }
                 quiz.CheckEndOfQuiz();
             }

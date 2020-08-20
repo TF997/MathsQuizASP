@@ -2,7 +2,7 @@
 {
     public class DifficultyData : QuestionData
     {
-        override public string InitialiserQuestion { get; set; } = "Difficulty?";
+        override public string __InitialiserQuestion { get; set; } = "Difficulty?";
 
     }
 }

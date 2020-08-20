@@ -7,15 +7,15 @@ namespace MathsQuiz
 {
     public class QuestionElementsToCheck
     {
-        public int OperatorsIndexOne { get; set; }
-        public int FirstNumber { get; set; }
-        public int SecondNumber { get; set; }
+        public int __OperatorsIndexOne { get; set; }
+        public int __FirstNumber { get; set; }
+        public int __SecondNumber { get; set; }
 
-        public QuestionElementsToCheck(int OperatorsIndexOne, int FirstNumber, int SecondNumber)
+        public QuestionElementsToCheck(int operatorsIndexOne, int firstNumber, int secondNumber)
         {
-            this.OperatorsIndexOne = OperatorsIndexOne;
-            this.FirstNumber = FirstNumber;
-            this.SecondNumber = SecondNumber;
+            __OperatorsIndexOne = operatorsIndexOne;
+            __FirstNumber = firstNumber;
+            __SecondNumber = secondNumber;
         }
     }
 }

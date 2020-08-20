@@ -7,7 +7,7 @@ namespace MathsQuiz
 {
     public class QuizOutput
     {
-        public string QuestionTextString { get; set; } = null;
-        public string AnswerTextString { get; set; } = null;
+        public string __QuestionTextString { get; set; } = null;
+        public string __AnswerTextString { get; set; } = null;
     }
 }

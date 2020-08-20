@@ -7,35 +7,35 @@ namespace MathsQuiz
 {
     public class QuestionChecker
     {
-        private readonly int squareIdentifier = 5;
-        private readonly int squareRootIdentifier = 4;
-        private readonly int divisionIdentifier = 3;
+        private readonly int __squareIdentifier = 5;
+        private readonly int __squareRootIdentifier = 4;
+        private readonly int __divisionIdentifier = 3;
 
         public QuestionCheckResults CheckQuestionResults(QuestionElementsToCheck questionElementsToCheck)
         {
-            QuestionCheckResults questionCheckResults = new QuestionCheckResults();
-            if (questionElementsToCheck.OperatorsIndexOne == squareIdentifier)
+            QuestionCheckResults _questionCheckResults = new QuestionCheckResults();
+            if (questionElementsToCheck.__OperatorsIndexOne == __squareIdentifier)
             {
-                questionCheckResults.ChangeIdentifier = "secondNum";
-                questionCheckResults.ChangedProperty = 2;
+                _questionCheckResults.__ChangeIdentifier = "secondNum";
+                _questionCheckResults.__ChangedProperty = 2;
             }
 
-            if (questionElementsToCheck.OperatorsIndexOne == divisionIdentifier)
+            if (questionElementsToCheck.__OperatorsIndexOne == __divisionIdentifier)
             {
-                questionCheckResults.ChangeIdentifier = "firstNum";
-                questionCheckResults.ChangedProperty = CheckDivisionResult(questionElementsToCheck.FirstNumber, questionElementsToCheck.SecondNumber);
+                _questionCheckResults.__ChangeIdentifier = "firstNum";
+                _questionCheckResults.__ChangedProperty = CheckDivisionResult(questionElementsToCheck.__FirstNumber, questionElementsToCheck.__SecondNumber);
             }
 
 
-            if (questionElementsToCheck.OperatorsIndexOne == squareRootIdentifier)
+            if (questionElementsToCheck.__OperatorsIndexOne == __squareRootIdentifier)
             {
-                questionCheckResults.ChangeIdentifier = "operatorsIndex";
-                if (!CheckIfSquareNumber(questionElementsToCheck.FirstNumber))
+                if (!CheckIfSquareNumber(questionElementsToCheck.__FirstNumber))
                 {
-                    questionCheckResults.ChangedProperty = 2;
+                    _questionCheckResults.__ChangeIdentifier = "operatorsIndex";
+                    _questionCheckResults.__ChangedProperty = 2;
                 }
             }
-            return questionCheckResults;
+            return _questionCheckResults;
         }
 
         private int CheckDivisionResult(int firstNum, int secondNum)
@@ -50,20 +50,20 @@ namespace MathsQuiz
 
         public QuestionNumbers MakeLargerNumberOne(QuestionNumbers numbers)
         {
-            if (numbers.FirstNumber < numbers.SecondNumber)
+            if (numbers.__FirstNumber < numbers.__SecondNumber)
             {
-                int temporaryFirstNum = numbers.FirstNumber;
-                numbers.FirstNumber = numbers.SecondNumber;
-                numbers.SecondNumber = temporaryFirstNum;
+                int _temporaryFirstNum = numbers.__FirstNumber;
+                numbers.__FirstNumber = numbers.__SecondNumber;
+                numbers.__SecondNumber = _temporaryFirstNum;
             }
             return numbers;
         }
 
         private bool CheckIfSquareNumber(int firstNum)
         {
-            double result = Math.Sqrt(firstNum);
-            bool isSquare = result % 1 == 0;
-            return isSquare;
+            double _result = Math.Sqrt(firstNum);
+            bool _isSquare = _result % 1 == 0;
+            return _isSquare;
         }
     }
 }

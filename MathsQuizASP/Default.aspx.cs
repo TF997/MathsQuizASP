@@ -20,7 +20,7 @@ namespace MathsQuizUI
             ReallocateValuesFromLastSession(lastSession);
             quiz.CheckSetupIsCompleted();
 
-            if (!quiz.difficultyData.IsInitiated || !quiz.maxQuestionData.IsInitiated)
+            if (!quiz.__difficultyData.__IsInitiated || !quiz.__maxQuestionData.__IsInitiated)
             {
                 Response.Redirect("Setup.aspx");
             }
@@ -29,28 +29,28 @@ namespace MathsQuizUI
             DisplayQuestionAndAnswer();
             quiz.CheckEndOfQuiz();
 
-            state.SaveQuiz(quiz.lastQuestion, quiz.difficultyData.Value, quiz.maxQuestionData.Value, quiz.QuestionCounter, quiz.Total);
+            state.SaveQuiz(quiz.__lastQuestion, quiz.__difficultyData.__Value, quiz.__maxQuestionData.__Value, quiz.__QuestionCounter, quiz.__Total);
         }
 
         public void ReallocateValuesFromLastSession(LastSession lastSession)
         {
-            quiz.lastQuestion = lastSession.LastSessionQuestion;
-            quiz.difficultyData.Value = lastSession.Difficulty;
-            quiz.maxQuestionData.Value = lastSession.MaxQuestions;
-            quiz.QuestionCounter = lastSession.QuestionCounter;
-            quiz.Total = lastSession.Total;
+            quiz.__lastQuestion = lastSession.LastSessionQuestion;
+            quiz.__difficultyData.__Value = lastSession.Difficulty;
+            quiz.__maxQuestionData.__Value = lastSession.MaxQuestions;
+            quiz.__QuestionCounter = lastSession.QuestionCounter;
+            quiz.__Total = lastSession.Total;
         }
         
         public void DisplayQuestionAndAnswer()
         {
-            outputWriter.WriteQuestion(quizOutput.QuestionTextString);
-            outputWriter.WriteAnswer(quizOutput.AnswerTextString);
+            outputWriter.WriteQuestion(quizOutput.__QuestionTextString);
+            outputWriter.WriteAnswer(quizOutput.__AnswerTextString);
         }
 
         public void UpdateProgressBar()
         {
-            float barProgress = quiz.QuestionCounter;
-            float barTotal = quiz.maxQuestionData.Value;
+            float barProgress = quiz.__QuestionCounter;
+            float barTotal = quiz.__maxQuestionData.__Value;
             float width = (barProgress / barTotal) * 100;
             if (width >= 100)
             {

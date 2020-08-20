@@ -7,39 +7,39 @@ namespace MathsQuiz
 {
     public class Operatornator
     {
-        private static Random randomNumberGenerator;
-        private const int easyOperatorLowerBound = 0;
-        private const int easyOperatorUpperBound = 4;
-        private const int mediumOperatorLowerBound = 2;
-        private const int mediumOperatorUpperBound = 6;
+        private static Random __randomNumberGenerator;
+        private const int __easyOperatorLowerBound = 0;
+        private const int __easyOperatorUpperBound = 4;
+        private const int __mediumOperatorLowerBound = 2;
+        private const int __mediumOperatorUpperBound = 6;
 
         public QuestionOperators GenerateOperatorBasedOnDifficulty(int difficulty)
         {
-            QuestionOperators questionOperators = new QuestionOperators();
-            randomNumberGenerator = new Random();
+            QuestionOperators _questionOperators = new QuestionOperators();
+            __randomNumberGenerator = new Random();
             if (difficulty == 1)
             {
-                questionOperators.OperatorsIndexOne = randomNumberGenerator.Next(easyOperatorLowerBound, easyOperatorUpperBound);
+                _questionOperators.__OperatorsIndexOne = __randomNumberGenerator.Next(__easyOperatorLowerBound, __easyOperatorUpperBound);
             }
             else if (difficulty == 2)
             {
-                questionOperators.OperatorsIndexOne = randomNumberGenerator.Next(mediumOperatorLowerBound, mediumOperatorUpperBound);
+                _questionOperators.__OperatorsIndexOne = __randomNumberGenerator.Next(__mediumOperatorLowerBound, __mediumOperatorUpperBound);
             }
             else
             {
-                if (randomNumberGenerator.Next(101) > 75)
+                if (__randomNumberGenerator.Next(101) > 75)
                 {
-                    questionOperators.OperatorsIndexOne = randomNumberGenerator.Next(easyOperatorLowerBound, easyOperatorUpperBound);
-                    questionOperators.OperatorsIndexTwo = randomNumberGenerator.Next(easyOperatorLowerBound, easyOperatorUpperBound);
-                    questionOperators.ExtraOperators = true;
+                    _questionOperators.__OperatorsIndexOne = __randomNumberGenerator.Next(__easyOperatorLowerBound, __easyOperatorUpperBound);
+                    _questionOperators.__OperatorsIndexTwo = __randomNumberGenerator.Next(__easyOperatorLowerBound, __easyOperatorUpperBound);
+                    _questionOperators.__ExtraOperators = true;
                 }
                 else
                 {
-                    questionOperators.OperatorsIndexOne = randomNumberGenerator.Next(easyOperatorLowerBound, mediumOperatorUpperBound);
-                    questionOperators.ExtraOperators = false;
+                    _questionOperators.__OperatorsIndexOne = __randomNumberGenerator.Next(__easyOperatorLowerBound, __mediumOperatorUpperBound);
+                    _questionOperators.__ExtraOperators = false;
                 }
             }
-            return questionOperators;
+            return _questionOperators;
         }
     }
 }
